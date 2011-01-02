@@ -1,0 +1,13 @@
+Install should be pretty simple. Open BoomSocket uses a single variable to help it keep track of multiple instances of the code running on the same server. To allow multiple instances you just need to open the i_clientCode.cfm file and change the value of thisClientCode to whatever your instance name is. The instance name cannot contain spaces and cannot start with numbers or special characters. In fact you probably should just user numbers, letters and the underscore "_" to keep things simple.
+
+To complete installation just do the following:
+1. Create an empty database on your MSSQL server.
+2. Run the SQL script found at /_install/DB/MS_SQL.sql
+3. Make note of the value of "thisClientCode" found in i_clientCode.cfm
+4. Create a datasource with the same name as "thisClientCode" in coldfusion and point it to the database created in step 1
+5. If your host requires you to pass in your database login and password with each CFQuery then you'll want to add those values to the i_dataSourceInfo.cfm file. We recommend precompiling this file before placing it on your server since it has your database password in plain text. You can find out how to precompile  a cfm file here http://livedocs.adobe.com/coldfusion/8/htmldocs/help.html?content=deploying_5.html. If you have received this codebase from someone else and when you open the i_dataSource.cfm file it looks like wacky code then they have sent you a copy of with the file precompiled. Just grab the latest version from our GIT repository located at https://github.com/OpenBoomSocket/OpenBoomSocket.
+6. Upload all the files, minus the _install directory, to your web servers root folder.
+7. Visit http://www.yourDomain.com/admintools/
+8. You should be presented with a login to Open BoomSocket, if not let us know. Otherwise the username is 'admin' and password is 'password'.
+
+From here you'll want to head over to our WIKI for further directions: http://www.assembla.com/wiki/show/openboomsocket/

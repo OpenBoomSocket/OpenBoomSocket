@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<rss version="2.0">
+			<channel>
+				<title>FAQs for Core Sockets</title> 
+				
+				<description>FAQs for Core Sockets</description> 
+				<copyright>2007</copyright>
+				<language>en-us</language> 
+				<lastBuildDate>Mon, 25 Jun 2007 12:09:52 EDT</lastBuildDate> 
+				<docs>http://blogs.law.harvard.edu/tech/rss</docs> 
+				<item>
+				<title>How do I upload an image or other file into my site?</title> 
+				<category>Content.cfm</category>
+				<category>115_filemanager</category>
+				
+				<description>You can manage all of your file resources in File Manager, located beneath the 'Content' section of Open BoomSocket. To upload a new file to your site, simply click either the "Add a File" or "Add an Image" icon in the upper left tool bar. Give your file a friendly name and optional description, specify a folder, browse your local computer for the file and click the "Add File" button.</description> 
+				<pubDate>Mon, 18 Jun 2007 05:00:33 EDT</pubDate> 
+				<guid>100003_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>How can I create Body Content on my site?</title> 
+				<category>Content.cfm</category>
+				<category>Site.cfm</category>
+				<category>103_page</category>
+				
+				<description>You can create body content in the content element tool.  Create a new content element, and enter your content into the wizzywig editor. Make sure that if you are pasting content from Microsoft Word to use the "Paste from Word" tool.  You can also view/edit the background html of your content by clicking the source button.  Once you have completed your content element, you can then assign it to the corresponding page on your site using the Page Layout Wizard.</description> 
+				<pubDate>Tue, 19 Jun 2007 12:00:02 EDT</pubDate> 
+				<guid>100007_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>Do I have to finalize my tool everytime I make a change to it?</title> 
+				<category>Developer.cfm</category>
+				<category>100_formEnvironment</category>
+				
+				<description>No, you only must finalize a tool when you initially create it. If you choose, for example, to simply alter a tool's field you just have to update that field for the changes to take effect.</description> 
+				<pubDate>Tue, 19 Jun 2007 12:38:10 EDT</pubDate> 
+				<guid>100023_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>Why can I not view my newly created record?</title> 
+				<category>Sockets.cfm</category>
+				<category>100_formEnvironment</category>
+				
+				<description>Make sure that if you are using versioning that your record is set to published. Records that are not published do not display on the site.</description> 
+				<pubDate>Tue, 19 Jun 2007 12:44:00 EDT</pubDate> 
+				<guid>100024_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>How do I add new containers to a template?</title> 
+				<category>Developer.cfm</category>
+				<category>101_template</category>
+				
+				<description>The format for adding a container to a template is [[Container Title^ContainerID]].  If you want to add a new container to a template, you simply have to add [[New Container Title^0]] where you want the new container to appear.  The system automatically knows to add a new container if the ID is set to 0. Or, if you want to add a container that is already being used in another template, simply add [[Container Title^ID of container you wish to dupe]]</description> 
+				<pubDate>Mon, 25 Jun 2007 12:01:41 EDT</pubDate> 
+				<guid>100039_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>Can I use the same container across multiple templates?</title> 
+				<category>Developer.cfm</category>
+				<category>101_template</category>
+				
+				<description>Yes you can!  In fact, using the same container (ids must match) across multiple templates can make it easier to assign content.  When assigning content to a page, if you select "assign to all pages", this assignment only happens for all pages with the container which you are assigning content.</description> 
+				<pubDate>Mon, 25 Jun 2007 12:04:35 EDT</pubDate> 
+				<guid>100040_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>For the list driven navigation, I've set my lis to display:inline (or float:left) in order to create horizontal nav.  Why is it still showing up vertically?</title> 
+				<category>Developer.cfm</category>
+				<category>104_displayhandler</category>
+				
+				<description>All of our navs have some extra goodness going on aside from the basic ul li set up, in the event that they will be flyouts.  Because of this, there are some extra divs nested inside the lis, which will cause breaks in your navigation.  So in order to get your nav to display in the horizontal format, you need to set both li and li div to either display:inline or float:left.</description> 
+				<pubDate>Mon, 25 Jun 2007 12:06:36 EDT</pubDate> 
+				<guid>100041_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>Can I add styles to the whizzywig editor?</title> 
+				<category>Content.cfm</category>
+				<category>Developer.cfm</category>
+				<category>109_contentobject</category>
+				
+				<description>You sure can.  In order to add new styles to the whizzywig editor, you will need to update /css/fckstyles.xml. You can read about adding new styles in the whizzywig editor wiki at: http://wiki.fckeditor.net/Developer%27s_Guide/Configuration/Styles.  Just note, be sure to only add styles using either a class or id that is also in /css/site.css. Adding new styles in fckstyles.xml WILL NOT affect styles on the actual site if these styles are not in site.css.</description> 
+				<pubDate>Mon, 25 Jun 2007 12:09:51 EDT</pubDate> 
+				<guid>100043_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>How is Navigation Structured?</title> 
+				<category>Site.cfm</category>
+				<category>102_sitesection</category>
+				<category>103_page</category>
+				
+				<description>Every navigation link (called a NavItem) uses an address (NavItemAddress). The addresses are generally created automatically when you create a new tool, page or section. Tools are registered with the admin navigation, while pages and sections are added to the default navigation group (id = 100000). When you create a new navigation item that points to either and external or internal URL, this link gets saved to the NavItemAddress table.</description> 
+				<pubDate>Tue, 19 Jun 2007 11:19:31 EDT</pubDate> 
+				<guid>100009_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>How do I use Data Driven Navigation?</title> 
+				<category>Developer.cfm</category>
+				<category>116_toolbuilder</category>
+				
+				<description>All data driven navigation (including registered pages) are built using a tool/instance relationship in the NavItemAddress table. For example the home page (home/index.cfm) is referenced with tool id = 103 (the page tool) and instance id = 100000. When navigation is built, the registered tool is parsed and the links is built dynamically. If you have opted for tool based navigation (you want navigation items to point to things like individual categories in a category tool),You must select the 'Record are Navigable' option when building the tool. The tool id and instance id are registered in the NavItemAddress table when you add new items. Tool navigation requires that you have assigned your tool registered display handler on a specific page. When you create a new navigation item and assign it to that page, the tool checks to see if a display handler has been registered, then pulls back all NavItemAddresses that are associated with this tool (via the display handlers' registered tool id). A list of available items is presented for assignment (Use Detail Item radio button set to yes).</description> 
+				<pubDate>Tue, 19 Jun 2007 11:21:29 EDT</pubDate> 
+				<guid>100011_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>What kinds of content can I put into a Content element?</title> 
+				<category>Content.cfm</category>
+				<category>109_contentobject</category>
+				
+				<description>They sky is the limit really. If you have HTML knowledge you can do just about anything form JavaScript to Flash. While it's recommended that you don't do JavaScript there is nothing stopping you. If you aren't familiar with HTML then you will be limited to what you can do with the options given to you in the WYSIWYG editor.</description> 
+				<pubDate>Tue, 19 Jun 2007 11:23:59 EDT</pubDate> 
+				<guid>100015_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>I need to put in special head tags. Can I do that with the Meta tool?</title> 
+				<category>Content.cfm</category>
+				<category>113_meta</category>
+				
+				<description>Sure you can! Just use the "Custom" block at the bottom of the meta tool form. You can assign custom code to sections, pages, and even the entire site! this is a great way to add extra stuff which might be required by search engines, analytic programs or just your organization in general.</description> 
+				<pubDate>Tue, 19 Jun 2007 11:24:55 EDT</pubDate> 
+				<guid>100017_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>Does a page have to have a template?</title> 
+				<category>Site.cfm</category>
+				<category>103_page</category>
+				
+				<description>Yes all pages require a template but the template you assign can be one without any HTML and just containers or it can be full of HTML and no containers. The template determines what types of content are available within a given page display. For example, top five press releases and news items may appear in the right sidebar container of the About Us page.</description> 
+				<pubDate>Tue, 19 Jun 2007 11:26:17 EDT</pubDate> 
+				<guid>100019_Core_FAQ</guid>
+			</item> 
+			<item>
+				<title>Can I have multiple Supervisors?</title> 
+				<category>Admin.cfm</category>
+				<category>118_SupervisorRelationship</category>
+				
+				<description>Yes. an individual can be managed by multiple people but we recommend you keep the relationships looking much like an organizational chart. If you have two supervisors at the same level managing one user there could create conflicts.</description> 
+				<pubDate>Tue, 19 Jun 2007 11:27:19 EDT</pubDate> 
+				<guid>100021_Core_FAQ</guid>
+			</item>
+			</channel>
+		</rss> 
