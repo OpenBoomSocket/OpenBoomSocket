@@ -1,0 +1,56 @@
+/* CSS file */
+Application{
+	backgroundColor: #ffffff;
+	backgroundGradientColors: #ffffff, #ffffff;
+}
+/*@font-face {
+    src: url(../assets/swf/UIelements.swf);
+    fontFamily: "Trebuchet MS";
+}*/
+.toolName{
+	font-size:18;
+	fontFamily: "Trebuchet MS";
+	color: #ffffff;
+	fontWeight: bold;
+	paddingLeft: 15;
+}
+.addButton{
+	paddingLeft: 0;
+	paddingRight: 0;
+	paddingTop: 0;
+	paddingBottom: 0;
+	fillAlphas: 0, 0, 0, 0;
+	borderColor: #ffffff;
+}
+.deleteButton{
+	overIcon : Embed(source="/assets/UIelements.swf", symbol="icon_trash"); 
+	upIcon : Embed(source="/assets/UIelements.swf", symbol="icon_trash");
+	downIcon : Embed(source="/assets/UIelements.swf", symbol="icon_trash");
+}
+.infoStyle{
+	font-size: 8;
+}
+.displayGrid{
+	alternatingItemColors: #EFF6FF, #DFEEFF;
+	rollOverColor: #BFDEFF;
+	headerColors: #0E3C6C, #0E3C6C;
+	verticalGridLineColor: #ffffff;
+	selectionColor: #F8AD37;
+	color: #0E3C6C;
+	borderColor: #ffffff;
+	headerStyleName:"gridHeader";
+}
+.gridHeader{
+	color: #ffffff;
+	fontWeight: bold;
+	rollOverColor: #0E3C6C;
+	textRollOverColor: #F8AD37;
+}
+.garbageHeader{
+	textAlign: 'center';
+	color: #ffffff;
+	fontWeight: bold;
+	rollOverColor: #ffffff;
+	textRollOverColor: #ffffff;
+	headerColors: #FFFFFF, #FFFFFF;
+}

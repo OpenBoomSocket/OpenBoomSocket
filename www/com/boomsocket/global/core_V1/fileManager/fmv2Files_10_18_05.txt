@@ -1,0 +1,34 @@
+File Manager V2 File structure:
+
+Folder: 	(MARS usr on 'Mars') /i3Golbal/fileManager/
+	Subs:	/images/ - gif files, icons etc.
+		/swf/ - Flash content
+	Files:	i_function.cfm - (ColdFusion)
+		i_main.cfm - (ColdFusion)
+
+Folder:		(MARS usr on 'Mars') #application.globalPath#/javascript/ajax/
+	Subs:	none
+	Files:	fmv2.js - (JavaScript)
+		windowstyle.js - (JavaScript)
+		wz_dragdrop.js - (JavaScript)
+
+Folder:		(MARS usr on 'Mars') /i3Golbal/css/ajax/
+	Subs:	none
+	Files:	fmv2box.css - (Cascading Style Sheet)
+		fmv2styles.css - (Cascading Style Sheet)
+
+Folder:		(ColdFusionMX7 on 'Mars') /CFC/core/
+	Subs:	none
+	Files:	filemanagerv2.cfc - (ColdFusion) component function file
+
+Folder:		(ColdFusionMX7 on 'Mars') /CFC/util/
+	Subs:	none
+	Files:	jsn.cfc - () de/serializes CF objects
+
+Folder:		(MARS usr on 'Mars') #application.globalPath#/javascript//
+	Subs:	none
+	Files:	jsn.js - () de/serializes CF objects into JS
+
+Folder:		(MARS usr on 'Mars') /i3Golbal/includes/sajax/
+	Subs:	none
+	Files:	sajaxV1.cfm - (ColdFusion) sajax CF to JS core function code

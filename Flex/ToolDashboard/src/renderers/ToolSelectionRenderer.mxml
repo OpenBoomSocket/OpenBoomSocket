@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()" width="100%" dataChange="reup()">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.Application;
+			
+			[Bindable]
+			private var appObj:Object;
+			[Bindable]
+			private var selected:Boolean;
+			[Bindable]
+			private var toolName:String;
+			
+			private function init():void{
+				appObj = Application.application;
+				if(data != null && toolSelector != null && toolLabel != null){
+					toolSelector.selected = data.selected;
+					toolLabel.text = data.label;
+				}
+			}
+			private function reup():void{
+				if(data != null && toolSelector != null && toolLabel != null){
+					toolSelector.selected = data.selected;
+					toolLabel.text = data.label;
+				}
+			}
+			private function changeProp():void{
+				data.selected = toolSelector.selected;
+			}
+		]]>
+	</mx:Script>
+	<mx:CheckBox id="toolSelector" selected="{data.selected}" click="changeProp()" />
+	<mx:Label id="toolLabel" text="{data.label}" width="150" textAlign="left"/>
+</mx:HBox>

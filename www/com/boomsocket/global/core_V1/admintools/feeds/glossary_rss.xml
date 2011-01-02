@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<rss version="2.0">
+			<channel>
+				<title>Glossary</title> 
+				
+				<description>Glossary</description> 
+				<copyright>2007</copyright>
+				<language>en-us</language> 
+				<lastBuildDate>Tue, 26 Jun 2007 03:44:33 EDT</lastBuildDate> 
+				<docs>http://blogs.law.harvard.edu/tech/rss</docs> 
+				<item>
+				<title>Socket Tool</title> 
+				<category>Developer.cfm</category>
+				<category>100_formEnvironment</category>
+				
+				<description>A backend form where dynamic content is entered. An socket tool resides in your boomsocket backend. You can add, edit, and delete dynamic content here.</description> 
+				<pubDate>Thu, 21 Jun 2007 09:46:41 EDT</pubDate> 
+				<guid>100027_Glossary</guid>
+			</item> 
+			<item>
+				<title>Body Content</title> 
+				<category>Content.cfm</category>
+				<category>103_page</category>
+				<category>109_contentobject</category>
+				
+				<description>Refers to a single field of HTML formatted content stored in the database. Body Content is commonly used to store information that does not change often, such as an About Us page.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:16:07 EDT</pubDate> 
+				<guid>100028_Glossary</guid>
+			</item> 
+			<item>
+				<title>Change Request</title> 
+				<category>Developer.cfm</category>
+				
+				<description>When a client wishes to change any aspect of the design and/or functionality of a project which exceeds the previously approved scope as it was defined in the functional specification document he must issue a change request. After submitting a change request, Digital Positions will provide a cost estimate to do the additional work.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:18:53 EDT</pubDate> 
+				<guid>100029_Glossary</guid>
+			</item> 
+			<item>
+				<title>Comp</title> 
+				<category>Developer.cfm</category>
+				
+				<description>When a graphic designer creates a look and feel or "composition" for your web site, she presents a "comp" usually in the form of a JPG. This comp should visually represent the wireframe, navigation and suggested functionality for the site. Commonly a designer will deliver several comps to choose from.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:19:43 EDT</pubDate> 
+				<guid>100030_Glossary</guid>
+			</item> 
+			<item>
+				<title>Container</title> 
+				<category>Site.cfm</category>
+				<category>101_template</category>
+				<category>103_page</category>
+				
+				<description>Refers to an area within the layout of a template that can hold either an assigned body content element or a display handler. Containers allow a single template to dynamically display many combinations of content without having to modify the layout of the template.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:21:14 EDT</pubDate> 
+				<guid>100031_Glossary</guid>
+			</item> 
+			<item>
+				<title>Data Driven Displays (Display Handler)</title> 
+				<category>Developer.cfm</category>
+				<category>104_displayhandler</category>
+				<category>105_displayobject</category>
+				
+				<description>Refers to the custom script used to display content that typically has multiple attributes, or fields that require more than one layout, or view on the web site. Examples of typical display handlers are Press Releases and Event Calendars.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:22:31 EDT</pubDate> 
+				<guid>100032_Glossary</guid>
+			</item> 
+			<item>
+				<title>Domain Name</title> 
+				<category>Site.cfm</category>
+				<category>103_page</category>
+				
+				<description>The address of your site such as 'mysite.com'. A site may also have a subdomain such as 'example.mysite.com'. Your domain translates to an IP Address that is unique to the server hosting your site.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:23:21 EDT</pubDate> 
+				<guid>100033_Glossary</guid>
+			</item> 
+			<item>
+				<title>File Manager</title> 
+				<category>Content.cfm</category>
+				
+				<description>A tool used to manage files you upload to your boomsocket site. Through this tool you can upload, edit, delete, and organize files on your site. You can also create thumbnails of your images.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:24:26 EDT</pubDate> 
+				<guid>100034_Glossary</guid>
+			</item> 
+			<item>
+				<title>Footer</title> 
+				<category>Content.cfm</category>
+				<category>103_page</category>
+				
+				<description>Content at the bottom of a document. The footer usually contains copyright information. It may also contain text-based navigation or contact information.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:25:18 EDT</pubDate> 
+				<guid>100035_Glossary</guid>
+			</item> 
+			<item>
+				<title>Live Edit</title> 
+				<category>Content.cfm</category>
+				<category>Site.cfm</category>
+				<category>103_page</category>
+				<category>109_contentobject</category>
+				
+				<description>A method for editing content on an BoomSocket site that allows the user to work on the copy in the context of where that copy will appear on the site. When in this mode, a pencil icon will appear over editable content areas of the site. Clicking the pencil icon will allow the user to modify the content in a Word-style editor.</description> 
+				<pubDate>Tue, 26 Jun 2007 03:44:33 EDT</pubDate> 
+				<guid>100036_Glossary</guid>
+			</item> 
+			<item>
+				<title>Sidebar</title> 
+				<category>Site.cfm</category>
+				<category>103_page</category>
+				
+				<description>Refers to a columnar content area in a web template that resides either to the left or right of the main content area. Commonly sidebars are used to display banners, and teaser headlines for content such as news, events and press releases.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:28:05 EDT</pubDate> 
+				<guid>100037_Glossary</guid>
+			</item> 
+			<item>
+				<title>Template</title> 
+				<category>Site.cfm</category>
+				<category>101_template</category>
+				<category>102_sitesection</category>
+				<category>103_page</category>
+				
+				<description>Refers to the HTML page layout used to display a specific look and feel that was created by the designer. Commonly a web site will use anywhere from 1 to 5 different templates to display different sections and varying pieces of functionality.</description> 
+				<pubDate>Thu, 21 Jun 2007 10:28:58 EDT</pubDate> 
+				<guid>100038_Glossary</guid>
+			</item>
+			</channel>
+		</rss> 

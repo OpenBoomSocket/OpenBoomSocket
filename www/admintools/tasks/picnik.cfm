@@ -1,0 +1,1 @@
+<cfinclude template="#APPLICATION.GLOBALPATH#/filemanager/i_picnik.cfm">

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow styleName="toolPod" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center"
+	 layout="vertical" width="450" height="375" creationComplete="init()" showCloseButton="true"
+	 close="resetPods()" roundedBottomCorners="true" cornerRadius="10" dropShadowEnabled="true"
+	 title="Dashboard Preferences" paddingLeft="0" paddingRight="0" >
+	<mx:Script>
+		<![CDATA[
+			import globalResources.ToolItemVO;
+			import mx.controls.TileList;
+			import mx.collections.ArrayCollection;
+			import mx.core.Application;
+			import views.ToolList;
+			
+			[Bindable]
+			private var appObj:Object;
+			[Bindable]
+			public var catList:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			public var toolList:ArrayCollection = new ArrayCollection();
+			
+			[Event (name="BuildPods")]
+			
+			private function init():void{
+				appObj = Application.application;
+				catList = appObj.dataObj.catList;
+				toolList = appObj.dataObj.toolList;
+			}
+			public function buildToolList():void{
+				var formCat:ToolList;
+				var toolListingData:ArrayCollection;
+				var toolItem:ToolItemVO;
+				for(var i:uint = 0 ; i< catList.length ; i++){
+					formCat = new ToolList();
+					formCat.label = catList.getItemAt(i).toolcategoryname;
+					toolListingData = new ArrayCollection();
+					for(var j:uint = 0 ; j < toolList.length ; j++){
+						if(toolList.getItemAt(j).toolcategoryid == catList.getItemAt(i).toolcategoryid){
+							toolItem = new ToolItemVO();
+							toolItem.label = toolList.getItemAt(j).label;
+							toolItem.selected = false;
+							var initlist:Array = appObj.initialList.split(',');
+							for(var k:uint=0 ; k<initlist.length ; k++){
+								if(toolList.getItemAt(j).formobjectid == initlist[k]){
+									toolItem.selected = true;
+								}
+							}
+							toolItem.formobjectid = toolList.getItemAt(j).formobjectid;
+							toolItem.editFieldKeyValue = toolList.getItemAt(j).editFieldKeyValue;
+							toolItem.datatable = toolList.getItemAt(j).datatable
+							toolListingData.addItem(toolItem);
+						}
+					}
+					formCat.dataList = toolListingData;
+					catAcc.addChild(formCat);
+				}
+			}
+			private function resetPods():void{
+				appObj.dispatchEvent(new Event("BuildPods",true));
+				this.visible = false;
+			}
+		]]>
+	</mx:Script>
+	<mx:Label fontWeight="bold" text="Check the elements you want to display in your dashboard."/>
+	<mx:Accordion id="catAcc" styleName="catAcc" width="100%" height="92%" bottom="20" creationPolicy="all"/>
+</mx:TitleWindow>

@@ -1,0 +1,93 @@
+<cfoutput>
+<style type="text/css">
+/************************************************************************/
+/*Live Edit classes;                                                    */
+/*                                                                      */
+/*Used for live edit on frontend                                        */
+/************************************************************************/
+
+/** General Button bar styels **/
+.buttonBar{
+	background-color:##336699;
+	background-image:url(#APPLICATION.globalPath#/media/images/btn_formBG.png);
+	background-repeat:repeat-x;
+	background-position:top;
+	/*padding:3px 5px;*/
+	width:600px;
+	margin:0 auto;
+}
+
+/** Workflow Button bar styles **/
+.divOn{
+	border-color: ##999999;
+	border-width: 1px;
+	border-style: dashed;
+	background-color: ##DDDDDD;
+	padding: 9px;
+	z-index: 0;
+	padding: 10px;
+}
+.divOff{
+	padding: 0px;
+	z-index: 0;
+}
+.editbutton {
+	height: 0px;
+	display: none;
+}
+##LEbutton {
+	display: inline;	
+}
+##LEbutton ul {
+	margin: 0px;
+	padding: 0px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 20px;
+
+}
+##LEbutton li {
+	list-style-type: none;
+	list-style-image: none;
+	height: 20px;
+	width: 25px;
+	margin-right: 5px;
+	text-align:left;
+	float: left;
+}
+##LEbutton li a {
+	height: 100%;
+	width: 100%;
+	display: block;
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: center;
+    color: ##FFFFFF;
+	font-weight: normal;
+}
+##LEbutton li a:link, div##LEbutton li a:visited {
+	background-color: ##C5CACE;
+	border-style: outset;
+	border-color: ##ABACAD;
+	border-width: 2px;
+}
+##LEbutton li a:hover {
+	background-color: ##EFECE2;
+	border-style: outset;
+	border-color: ##A0A1A2;
+	border-width: 2px;
+}
+##LEbutton li a:active {
+	background-color: ##EFECE2;
+	border-style: inset;
+	border-color: ##A0A1A2;
+	border-width: 2px;
+}
+
+.LEselectMenu {
+	font-size: 11px;
+	font-family: verdana;
+	margin: 0px 0px 0px 0px;
+}
+</style>
+</cfoutput>

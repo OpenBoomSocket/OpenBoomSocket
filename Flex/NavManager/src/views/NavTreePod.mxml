@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" height="100%" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			import mx.core.DragSource;
+			import valueObjects.NavItem;
+			import mx.utils.ObjectUtil;
+			import mx.core.Application;
+			import mx.controls.Alert;
+			[Bindable]
+			private var ordinalUpdate:Boolean = false;
+			[Bindable]
+			private var appObj:Object = new Object;
+			private function init():void{
+				appObj = Application.application;
+			}
+			public function setCurrent():void{
+				if(Application.application.dataObj.getIndexFromArrayCollection(Application.application.dataObj.navItems,'navitemid',navTree.selectedItem.@data) >= 0){
+					Application.application.navForm.setData(Application.application.dataObj.navItems.getItemAt(Application.application.dataObj.getIndexFromArrayCollection(Application.application.dataObj.navItems,'navitemid',navTree.selectedItem.@data)));
+					Application.application.msgTxt.text = "Editing nav item: "+navTree.selectedItem.@label;
+				}
+			}
+			private function moveChild(event:DragEvent):void{
+				Application.application.msgTxt.text = "Order has been changed - please save";
+				ordinalUpdate = true;
+				// r is the visible index in the tree
+				var dropTarget:Tree = Tree(event.currentTarget);
+				var n:int = dropTarget.calculateDropIndex(event);
+				var o:int = dropTarget.selectedIndex;
+				var node:XML;
+				var arrayItem:Object;
+				var oldNode:XML = XML(dropTarget.selectedItem);
+				var children:XMLList = XMLList(oldNode.parent()).children();
+				var movableItem:XML = <node />;
+				movableItem.@label = dropTarget.selectedItem.@label;
+				movableItem.@data = dropTarget.selectedItem.@data;
+				movableItem.appendChild(dropTarget.selectedItem.children());
+				arrayItem = Application.application.dataObj.navItems.getItemAt(Application.application.dataObj.getIndexFromArrayCollection(Application.application.dataObj.navItems,'navitemid',movableItem.@data));
+				/*
+				if(o!=n){
+					if(event.ctrlKey){
+						if(n>o){
+							//insert first, then delete
+							dropTarget.selectedIndex = n;
+							node = dropTarget.selectedItem as XML;
+							dropTarget.dataDescriptor.addChildAt(node, movableItem, 0);
+							if(arrayItem.parentid == arrayItem.dynamicnavigationid){
+								for(var i:int=0 ; i<navTree.dataProvider.length ; i++){
+									if(navTree.dataProvider.getItemAt(i).@data == oldNode.@data){
+										Application.application.dataObj.navXML.removeItemAt(m);
+									}
+								}
+							}else{
+								for(var j:Number=0; j<children.length(); j++) {
+								     if( children[j].@data == oldNode.@data ) {
+								         delete children[j];
+								     }
+								}
+							}
+							arrayItem.parentid = node.@data;
+						}else{
+							//delete first, then insert
+							//insert first, then delete
+							dropTarget.selectedIndex = n;
+							node = dropTarget.selectedItem as XML;
+							dropTarget.dataDescriptor.addChildAt(node, movableItem, 0);
+							arrayItem = Application.application.dataObj.navItems.getItemAt(Application.application.dataObj.getIndexFromArrayCollection(Application.application.dataObj.navItems,'dynamicnavigationid',movableItem.@data));
+							if(arrayItem.parentid == arrayItem.dynamicnavigationid){
+								for(var m:int=0 ; m<navTree.dataProvider.length ; m++){
+									if(navTree.dataProvider.getItemAt(m).@data == oldNode.@data){
+										Application.application.dataObj.navXML.removeItemAt(m);
+									}
+								}
+							}else{
+								for(var k:Number=0; k<children.length(); k++) {
+								     if( children[k].@data == oldNode.@data ) {
+								         delete children[k];
+								     }
+								}
+							}
+							arrayItem.parentid = node.@data;
+						}
+					}else{
+						trace("clean");
+					}
+				}
+				*/
+				if(movableItem.parent() == null){
+					arrayItem.parentid = arrayItem.navitemid;
+				}/*else if(arrayItem.parentid != movableItem.parent().@data){
+					arrayItem.parentid = movableItem.parent().@data;
+				}*/
+				if((movableItem.parent() != null) && !navTree.isItemOpen(movableItem.parent())){
+					navTree.expandChildrenOf(movableItem.parent(),true);
+				}
+				setCurrent();
+				navTree.invalidateDisplayList();
+			}
+			private function enterChild(event:DragEvent):void{
+				
+			}
+			private function onDragOver( event:DragEvent ):void{
+				ordinalUpdate = true;
+				var c:int = navTree.selectedIndex;
+				var currentItem:XML = navTree.selectedItem as XML;
+				// r is the visible index in the tree
+				var r:int = navTree.calculateDropIndex(event);
+				navTree.selectedIndex = r;
+				if(!navTree.isItemOpen(navTree.selectedItem)){
+					navTree.expandItem(navTree.selectedItem,true);
+				}
+				navTree.selectedIndex = c;
+	
+				// retrieving the newly selected node, you can examine it and decide to tell
+				// the user the drop is invalid by changing the feedback.
+				//var node:XML = tree.selectedItem as XML;
+				//if( node.@type == "minivan" ) {
+				//	DragManager.showFeedback(DragManager.NONE);
+				//	return;
+				//}
+	
+				// the type of drop - copy, link, or move can be reflected in the feedback as well.
+				// Here the control and shift keys determine that action.
+				if (event.ctrlKey)
+					DragManager.showFeedback(DragManager.COPY);
+				else if (event.shiftKey)
+					DragManager.showFeedback(DragManager.LINK);
+				else{
+					DragManager.showFeedback(DragManager.MOVE);
+				}
+			}
+			public function openMe(event:Object):void{
+				
+			}
+			public function shuffleUp():void{
+				ordinalUpdate = true;
+				Application.application.msgTxt.text = "Order has been changed - please save";
+				var parentNode:XML;
+				var childList:XMLList;
+				var itemHolder:XML;
+				var newIndex:String;
+				var newIndexSub:String;
+				if((navTree.selectedItem == null) || (navTree.selectedIndex < 0)){
+					return;
+				}
+				var currentIndex:int = Application.application.dataObj.getIndexFromArrayCollection(Application.application.dataObj.navItems,"navitemid",navTree.selectedItem.@data);
+				var arrayItem:Object = Application.application.dataObj.navItems.getItemAt(currentIndex);
+				if(arrayItem.parentid == arrayItem.navitemid){
+					for(var i:int = 0 ; i < XMLList(navTree.dataProvider).length() ; i++){
+						if(arrayItem.navitemid == navTree.dataProvider.getItemAt(i).@data){
+							if(i != 0){
+								newIndex = String(i-1);
+								itemHolder = XMLListCollection(navTree.dataProvider).getItemAt(i-1) as XML;
+								var movedItem:XML = XMLListCollection(navTree.dataProvider).setItemAt(XMLListCollection(navTree.dataProvider).getItemAt(i),i-1) as XML;
+								XMLListCollection(navTree.dataProvider).setItemAt(itemHolder,i) as XML;
+								navTree.selectedIndex = 0;
+								navTree.selectedIndex = i-1;
+							}
+						}
+					}
+				}else if(XMLList(XML(navTree.selectedItem).parent()).children().length()){
+					parentNode = XML(navTree.selectedItem).parent() as XML;
+					childList = XMLList(XML(navTree.selectedItem).parent()).children();
+					newIndexSub = String(navTree.selectedIndex-1);
+					for(var j:int = 0 ; j < childList.length() ; j++){
+						if(arrayItem.navitemid == childList[j].@data){
+							if(j != 0){
+								itemHolder = <node />;
+								itemHolder.@label = childList[j-1].@label;
+								itemHolder.@data = childList[j-1].@data;
+								itemHolder.appendChild(childList[j-1].children());
+								childList[j-1] = childList[j];
+								childList[j] = itemHolder;
+								parentNode.setChildren(childList);
+								navTree.selectedIndex = -1;
+								navTree.dataProvider = Application.application.dataObj.navXML;
+								//navTree.selectedIndex = j-1;
+							}else{
+								newIndexSub = String(navTree.selectedIndex);
+							}
+						}
+					}
+				}
+
+				if(newIndex != null && newIndex.length){
+					navTree.selectedIndex = Number(newIndex);
+				}else{
+					var open:Object  = new Object();
+					open = navTree.openItems;
+					navTree.dataProvider = Application.application.dataObj.navXML;
+					navTree.openItems = open;
+					navTree.validateNow();
+					navTree.selectedIndex = Number(newIndexSub);
+				}
+				//navTree.invalidateDisplayList();
+			}
+			public function shuffleDown():void{
+				ordinalUpdate = true;
+				Application.application.msgTxt.text = "Order has been changed - please save";
+				var parentNode:XML;
+				var childList:XMLList;
+				var itemHolder:XML;
+				var newIndex:String;
+				var newIndexSub:String;
+				if((navTree.selectedItem == null) || (navTree.selectedIndex < 0)){
+					return;
+				}
+				var currentIndex:int = Application.application.dataObj.getIndexFromArrayCollection(Application.application.dataObj.navItems,"navitemid",navTree.selectedItem.@data);
+				var arrayItem:Object = Application.application.dataObj.navItems.getItemAt(currentIndex);
+				if(arrayItem.parentid == arrayItem.navitemid){
+					for(var i:int = 0 ; i < XMLList(navTree.dataProvider).length() ; i++){
+						if(arrayItem.navitemid == navTree.dataProvider.getItemAt(i).@data){
+							if(i != (XMLList(navTree.dataProvider).length()-1)){
+								newIndex = String(i+1);
+								itemHolder = XMLListCollection(navTree.dataProvider).getItemAt(i+1) as XML;
+								var movedItem:XML = XMLListCollection(navTree.dataProvider).setItemAt(XMLListCollection(navTree.dataProvider).getItemAt(i),i+1) as XML;
+								XMLListCollection(navTree.dataProvider).setItemAt(itemHolder,i) as XML;
+								navTree.selectedIndex = 0;
+								navTree.selectedIndex = i-1;
+								navTree.selectedIndex = i+1;
+								break;
+							}
+						}
+					}
+				}else if(XMLList(XML(navTree.selectedItem).parent()).children().length()){
+					parentNode = XML(navTree.selectedItem).parent() as XML;
+					childList = XMLList(XML(navTree.selectedItem).parent()).children();
+					newIndexSub = String(navTree.selectedIndex+1);
+					for(var j:int = 0 ; j < childList.length() ; j++){
+						if(arrayItem.navitemid == childList[j].@data){
+							if(j != (XMLList(childList).length()-1)){
+								itemHolder = <node />;
+								itemHolder.@label = childList[j+1].@label;
+								itemHolder.@data = childList[j+1].@data;
+								itemHolder.appendChild(childList[j+1].children());
+								childList[j+1] = childList[j];
+								childList[j] = itemHolder;
+								parentNode.setChildren(childList);
+								//navTree.selectedIndex = -1;
+								navTree.dataProvider = Application.application.dataObj.navXML;
+								//navTree.selectedIndex = j-1;
+								break;
+							}else{
+								trace("?"+Application.application.dataObj.navXML);
+								newIndexSub = String(navTree.selectedIndex);
+							}
+						}
+					}
+				}
+				
+				if(newIndex != null && newIndex.length){
+					navTree.selectedIndex = Number(newIndex);
+					//trace(newIndex+" "+navTree.selectedIndex);
+				}else{
+					var open:Object  = new Object();
+					open = navTree.openItems;
+					navTree.dataProvider = Application.application.dataObj.navXML;
+					navTree.openItems = open;
+					navTree.validateNow();
+					trace(newIndexSub+" "+navTree.selectedIndex);
+					navTree.selectedIndex = Number(newIndexSub);
+				}
+				//navTree.invalidateDisplayList();
+			}
+			public function refreshItems():void{
+				Application.application.dbManager.navRO.getAllNavigation({navgroupid:Number(Application.application.dataObj.currentGroup),fromflex:1,usePermissions:1,active:0});
+				ordinalUpdate = false;
+			}
+			public function saveOrdinal():void{
+				var open:Object  = new Object();
+				open = navTree.openItems;
+				Application.application.dataObj.updateOrdinal();
+				var dataObj:Object = new Object();
+				dataObj.fieldsSave = Application.application.dataObj.fieldSave;
+				Application.application.dbManager.navRO.updateMenuOrder({dataStruct:dataObj});
+				ordinalUpdate = false;
+				navTree.dataProvider = Application.application.dataObj.navXML;
+				navTree.openItems = open;
+				navTree.validateNow();
+			}
+		]]>
+	</mx:Script>
+	<mx:Label styleName="headerText" text="Navigation Items"/>
+	<mx:Tree styleName="navTree" id="navTree" width="280" height="100%" dataProvider="{Application.application.dataObj.navXML}" labelField="@label"
+		showRoot="true" change="setCurrent()" dragEnabled="true" dragMoveEnabled="true" dropEnabled="true"
+		dragDrop="moveChild(event)" dragOver="onDragOver(event)" itemRollOver="openMe(event);" itemClick="trace(navTree.selectedIndex)">
+		
+	</mx:Tree>
+	<!-- <mx:itemRenderer>
+			<mx:Component>
+				<mx:HBox>
+					<mx:Script>
+						<![CDATA[
+							import mx.core.Application;
+						]]>
+					</mx:Script>
+					<mx:Image source="{Application.application.dataObj.navItems.getItemAt(Application.application.dataObj.getIndexFromArrayCollection(Application.application.dataObj.navItems,'dynamicnavigationid',data.@data)).offState}" />
+					<mx:Label text="{data.@label}" />
+				</mx:HBox>
+			</mx:Component>
+		</mx:itemRenderer>-->
+	<mx:HBox id="fieldBox" verticalAlign="middle">
+		<mx:HBox id="shuffleBox" verticalAlign="middle">
+			<mx:Label text="Shuffle"/>
+			<mx:VBox horizontalAlign="center">
+				<mx:Button id="up_btn" label="up" width="30" height="15" click="shuffleUp()" />
+				<mx:Button id="down_btn" label="dn" width="30" height="15" click="shuffleDown()" />
+			</mx:VBox>
+		</mx:HBox>
+		<mx:VBox horizontalAlign="center" visible="{ordinalUpdate}"  width="{ordinalUpdate?120:0}">
+			<mx:Button styleName="saveButton" label="Update Order" buttonDown="saveOrdinal()" useHandCursor="true" buttonMode="true" />
+			<mx:Button styleName="loadButton" label="Reload Items" buttonDown="refreshItems()" useHandCursor="true" buttonMode="true" />
+		</mx:VBox>
+	</mx:HBox>
+</mx:VBox>

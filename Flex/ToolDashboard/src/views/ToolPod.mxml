@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="295" height="230" creationComplete="init()" dataChange="show()" buttonMode="true" useHandCursor="true">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.ListEvent;
+			import mx.collections.ArrayCollection;
+			import mx.core.Application;
+			import mx.utils.ObjectUtil;
+			import mx.controls.Alert;
+			
+			[Bindable]
+			private var appObj:Object;
+			[Bindable]
+			public var listItems:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			public var podLabel:String = "";
+			[Bindable]
+			public var toolID:String = "";
+			
+			private function init():void{
+				appObj = Application.application;
+				//title = this.toString();
+			}
+			private function show():void{
+				podLabel = data.podLabel;
+				listItems = data.listItems;
+				toolID = data.toolID;
+			}
+			private function launchTool():void{
+				var link:URLRequest = new URLRequest(appObj.serverURL+"/admintools/index.cfm?i3currenttool="+toolID);
+				navigateToURL(link,"_parent");
+			}
+			private function editItem(event:ListEvent):void{
+				var link:URLRequest = new URLRequest(appObj.serverURL+"/admintools/index.cfm?i3currenttool="+toolID+"&instanceid="+itemList.selectedItem.instanceID+"&displayForm=1&formstep=showform");
+				navigateToURL(link,"_parent");
+			}
+		]]>
+	</mx:Script>
+	<mx:Panel id="toolPod" title="{podLabel}" styleName="toolPod" layout="absolute" width="293" height="195" top="0" left="0" verticalScrollPolicy="off">
+		<mx:List styleName="itemList" id="itemList" dataProvider="{listItems}" width="100%" height="100%" rowCount="6"
+			rowHeight="26" itemRenderer="renderers.ListItemRenderer" verticalScrollPolicy="off" textAlign="left"
+			itemClick="editItem(event)"/>
+		<mx:ControlBar styleName="toolPodCntrl" height="15" horizontalAlign="right" verticalAlign="top" paddingTop="-4">
+			<mx:LinkButton styleName="moreBtn" label="more >>" click="launchTool()"/>
+		</mx:ControlBar>
+	</mx:Panel>
+</mx:Canvas>

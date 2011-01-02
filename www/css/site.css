@@ -1,0 +1,533 @@
+/* list of fields to populate cellproperties style dropdown (formbuilder) */
+/* <!-- {frontendformitemlabel,frontendformitemlabelreq,frontendformiteminput,frontendformitemcheckbox} --> */
+/************************************************************************/
+/*Block Level Styles                                                    */
+/*                                                                      */
+/*body, table, td, h1-h6, p, div, span, a, ul, ol, li                   */
+/*These styles are read into vars and initialization of the site's      */
+/*application, and they're used to define the basic look and feel of    */
+/*the front end of the site.                                            */
+/*                                                                      */
+/*please put any custom classes or styles in the Custom area below this */
+/*one                                                                   */
+/************************************************************************/
+
+body, table, td, p, div, span, li {
+	font-family:"Trebuchet MS", Arial, Verdana;
+	font-size: 11px;
+	color: #666666;
+}
+ul {
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 12px;
+	color : #000000;
+	padding: 0px 0px 0px 20px;
+	margin : 0px 0px 0px 0px;
+}
+h1 {
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 20px;
+	color: #0E3C6D;
+	font-weight : bold;
+}
+h2 {
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 17px;
+	color : #006699;
+	font-weight : bold;
+}
+h3 {
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 14px;
+	color : #000000;
+	font-weight : bold;
+}
+a, a:focus, a:hover, a:visited {
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : inherit;
+	color: #11518F;
+	text-decoration: none;
+	font-weight : inherit;
+}
+a:hover {
+	color: #45729F;
+	text-decoration: underline;
+}
+a.MappingLink{ 
+	display:block; 
+	background-image:url(/admintools/media/images/icon_mapping.gif); 
+	background-repeat:no-repeat; 
+	background-color:#666666; 
+	background-position:center left;
+	text-decoration:none; 
+	padding:15px 10px; 
+	color:#ffffff; 
+	width: 100px; 
+	position:absolute; 
+	border:1px solid #000000; 
+	top:0; 
+	right:0;
+	padding:10px 15px 10px 35px;
+ } 
+ a.MappingLink:hover{ 
+	background-color:#888888; 
+	text-decoration:underline; 
+ }
+
+/************************************************************************/
+/*Generic Data Driven Display Styles                                    */
+/************************************************************************/
+.dddListing{}
+.dddListing h2{
+	border-bottom:1px solid;
+}
+.dddListing h2 a:hover{
+	text-decoration:none;
+}
+.dddItem{}
+.dddDetail{}
+
+.sidebarResourceBlock{}
+.sidebarResourceBlock h3{}
+.sidebarResourceBlock li{}
+
+.abstract{}
+.bodyText{}
+.author{}
+.date{}
+.PDF{}
+.externalLink{}
+.Image{}
+
+.detailLink,.listingLink{}
+.detailLink{
+	text-align:right;
+}
+.listingLink
+{
+	margin-top:20px;
+}
+.detailLink a, .detailLink a:focus, .detailLink a:hover, .detailLink a:visited, .listingLink a, .listingLink a:focus, .listingLink a:hover, .listingLink a:visited{
+	font-size:10px;
+	text-decoration:none;
+}
+.detailLink a, .detailLink a:focus, .detailLink a:hover, .detailLink a:visited{
+	background-image:url(/media/images/detail_icon.gif);
+	background-repeat:no-repeat;
+	background-position:right;
+	padding-right:10px; /* may change depeding upone width of detail_icon.gif 10px for installer */
+}
+/*.detailLink a:before{content:">> << "} use printscreen to create images*/
+.listingLink a, .listingLink a:focus, .listingLink a:hover, .listingLink a:visited{
+	background-image:url(/media/images/listing_icon.gif);
+	background-repeat:no-repeat;
+	background-position:left;
+	padding-left:10px; /* may change depeding upone width of detail_icon.gif 10px for installer */
+}
+
+/************************************************************************/
+/*Custom Classes and Styles;                                            */
+/*                                                                      */
+/*Any custom classes or styles needed specifically for this site's      */
+/*front end go here.                                                    */
+/************************************************************************/
+/** clearfix **/
+.clearfix:after {  
+   content: ".";  
+   display: block;  
+   clear: both;  
+   visibility: hidden;  
+   line-height: 0;  
+   height: 0;  
+}  
+ 
+.clearfix {  
+   display: inline-block;  
+}  
+ 
+html[xmlns] .clearfix {  
+  display: block;  
+}  
+ 
+* html .clearfix {  
+  height: 1%;  
+}  
+/** **/
+.clearFloats{clear:both;}
+.brclear { /* Use a break with this class to clear float containers */
+	clear:both;
+	height:0;
+	margin:0;
+	font-size: 1px;
+	line-height: 0;
+}
+/* Template Shell */
+#mainShell{
+	width: 950px;
+	margin: 0 auto;
+	background-image:url(/media/images/mainShellBG.gif);
+	background-repeat:repeat-y;
+	min-height: 400px;
+}
+#header{
+	background-image:url(/media/images/headerBG.jpg);
+	background-repeat:no-repeat;
+	background-position:top;
+	height:119px;;
+	text-align: right;
+}
+#topNavBar{
+	height: 41px;
+}
+#leftNav{
+	width:172px;
+	float:left;
+	margin:28px 0 4px 4px;
+}
+#contentArea{
+	width:755px;
+	float:right;
+	margin: 28px 4px 4px 0;
+	padding-left: 15px;
+}
+#logo{
+	margin-right: 15px;
+}
+#footer{
+	width: 950px;
+	margin: 0 auto;
+	background-image:url(/media/images/footerBG.png);
+	background-repeat:no-repeat;
+	height: 33px;
+	text-align:center;
+	font-size: 10px;
+	color: #336699;
+	padding: 8px 0;
+}
+/************************************************************************/
+/*Site Map Styles;                                            */
+/************************************************************************/
+.sitemapColumn{
+	margin:0;
+	padding:5px;
+}
+.sitemapSection{
+	font-weight:bold;
+}
+.sitemapSubSection{
+	font-weight:bold;
+}
+.sitemapPage{
+	font-weight:normal;
+}
+
+/* nav manager */
+.navItemLevel_1{
+	margin-left: 3px;
+	background-color:#E1E1E1;
+}
+.parentLevel_1{
+	margin-left: 3px;
+	background-color:#E1E1E1;
+}
+.navItemLevel_2{
+	margin-left: 6px;
+	background-color:#CCCCCC;
+}
+.parentLevel_2{
+	margin-left: 6px;
+	background-color:#CCCCCC;
+}
+
+/************************************************************************/
+/*Error Handeling Styles                                                */
+/************************************************************************/
+#errorBlock{
+	margin-left: 15px;
+	margin-bottom: 10px;
+}
+#errorBlock h2{
+	color: #cc0000;
+	margin: 2px;
+	height: 25px;
+	background-image:url(/media/images/icon_error.gif);
+	background-repeat:no-repeat;
+	padding-left: 30px;
+}
+#errorBlock ul{
+	list-style:square;
+	margin: 3px 0px;
+	padding-left: 30px;
+}
+#errorBlock ul li{
+	color: #cc0000;
+	border-left: 1px solid #cc0000;
+	margin-left: 3px;
+	padding-left: 8px;
+}
+/************************************************************************/
+/*Admin Tools Styles and classes;                                       */
+/*                                                                      */
+/*Used by admintools and administrative displays on the front end       */
+/*(Not actually put into use yet - still using admintools.css           */
+/************************************************************************/
+
+.formbuilderheader {
+	padding-bottom : 5px;
+	padding-left : 5px;
+	padding-right : 5px;
+	padding-top : 5px;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 12px;
+	font-weight : bold;
+	color : #FFFFFF;
+	vertical-align : top;
+	background-color : #4c4c4c;
+}
+.smallfontsize {
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 9px;
+	color : #000000;
+}
+.errortext {
+	padding-bottom : 5px;
+	padding-left : 8px;
+	padding-right : 5px;
+	padding-top : 5px;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 12px;
+	color : #ffffff;
+	background-color : #f4f4f4;
+	border : 3px solid #cc0000;
+}
+.logintext {
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 12px;
+	font-weight : bold;
+	color : #663366;
+}
+.submitbuttonFront {
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	font-weight : bold;
+	text-align : center;
+	padding-left:5px;
+	padding-right:5px;
+	padding-top:2px;
+	padding-bottom:2px;
+	color : #5D8DB8;
+	background-color : #ffffff;
+	border: 1px solid #5D8DB8;
+}
+.submitbuttonGray {
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	font-weight : bold;
+	text-align : center;
+	padding-left:5px;
+	padding-right:5px;
+	color : #ffffff;
+	background-color : #666666;
+	border : 2px ridge #dadada;
+}
+.frontendformitemlabel{
+	padding-bottom : 5px;
+	padding-left : 5px;
+	padding-right : 5px;
+	padding-top : 5px;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	color : #666666;
+	vertical-align : top;
+	font-style : italic;
+}
+.frontendformitemlabelreq{
+	padding-bottom : 5px;
+	padding-left : 5px;
+	padding-right : 5px;
+	padding-top : 5px;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	color : #666666;
+	vertical-align : top;
+}
+.frontendformiteminput {
+	padding-bottom : 5px;
+	padding-left : 5px;
+	padding-right : 5px;
+	padding-top : 5px;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	color : #666666;
+	vertical-align : top;
+	border-style : none;
+}
+.frontendformitemcheckbox {
+	padding-bottom : 5px;
+	padding-left : 5px;
+	padding-right : 5px;
+	padding-top : 5px;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	color : #666666;
+	vertical-align : top;
+}
+.frontendinputfield{
+	background-color:#F0F0F0;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	color : #666666;
+	padding: 1px;
+}
+.submitbutton {
+	BACKGROUND-COLOR: #749BAD;
+	BORDER-BOTTOM: #dadada 2px ridge;
+	BORDER-LEFT: #dadada 2px ridge;
+	BORDER-RIGHT: #dadada 2px ridge;
+	BORDER-TOP: #dadada 2px ridge;
+	COLOR: #ffffff;
+	FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 11px;
+	FONT-WEIGHT: bold;
+	TEXT-ALIGN: center
+}
+.successtext {
+	padding-bottom : 5px;
+	padding-left : 5px;
+	padding-right : 5px;
+	padding-top : 5px;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 12px;
+	font-weight : bold;
+	color : #ffffff;
+	background-color : #c4c4ff;
+	border : 1px dashed #555555;
+}
+.toolheader {
+	padding-bottom : 5px;
+	padding-left : 5px;
+	padding-right : 8px;
+	padding-top : 5px;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 14px;
+	font-weight : bold;
+	text-align : right;
+	color : #ffffff;
+	background-color : #333333;
+}
+.toolheaderi3 {
+	BACKGROUND-COLOR: #5B879C;
+	COLOR: #FFFFFF;
+	FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	FONT-SIZE: 14px;
+	FONT-WEIGHT: bold;
+	PADDING-BOTTOM: 6px;
+	PADDING-LEFT: 6px;
+	PADDING-TOP: 6px;
+	PADDING-RIGHT: 6px;
+}
+.toolTable {
+	BACKGROUND-COLOR: #ffffff
+}
+
+/**************************/
+/* Calendar Pop Up Styles */
+/**************************/
+
+.BSCalcpYearNavigation,
+.BSCalcpMonthNavigation
+		{
+		background-color:#6677DD;
+		text-align:center;
+		vertical-align:center;
+		text-decoration:none;
+		color:#FFFFFF;
+		font-weight:bold;
+		}
+.BSCalcpDayColumnHeader,
+.BSCalcpYearNavigation,
+.BSCalcpMonthNavigation,
+.BSCalcpCurrentMonthDate,
+.BSCalcpCurrentMonthDateDisabled,
+.BSCalcpOtherMonthDate,
+.BSCalcpOtherMonthDateDisabled,
+.BSCalcpCurrentDate,
+.BSCalcpCurrentDateDisabled,
+.BSCalcpTodayText,
+.BSCalcpTodayTextDisabled,
+.BSCalcpText
+		{
+		font-family:arial;
+		font-size:8pt;
+		}
+TD.BSCalcpDayColumnHeader
+		{
+		text-align:right;
+		border:solid thin #6677DD;
+		border-width:0px 0px 1px 0px;
+		}
+.BSCalcpCurrentMonthDate,
+.BSCalcpOtherMonthDate,
+.BSCalcpCurrentDate
+		{
+		text-align:right;
+		text-decoration:none;
+		}
+.BSCalcpCurrentMonthDateDisabled,
+.BSCalcpOtherMonthDateDisabled,
+.BSCalcpCurrentDateDisabled
+		{
+		color:#D0D0D0;
+		text-align:right;
+		text-decoration:line-through;
+		}
+.BSCalcpCurrentMonthDate
+		{
+		color:#6677DD;
+		font-weight:bold;
+		}
+.BSCalcpCurrentDate
+		{
+		color: #FFFFFF;
+		font-weight:bold;
+		}
+.BSCalcpOtherMonthDate
+		{
+		color:#808080;
+		}
+TD.BSCalcpCurrentDate
+		{
+		color:#FFFFFF;
+		background-color: #6677DD;
+		border-width:1px;
+		border:solid thin #000000;
+		}
+TD.BSCalcpCurrentDateDisabled
+		{
+		border-width:1px;
+		border:solid thin #FFAAAA;
+		}
+TD.BSCalcpTodayText,
+TD.BSCalcpTodayTextDisabled
+		{
+		border:solid thin #6677DD;
+		border-width:1px 0px 0px 0px;
+		}
+A.BSCalcpTodayText,
+SPAN.BSCalcpTodayTextDisabled
+		{
+		height:20px;
+		}
+A.BSCalcpTodayText
+		{
+		color:#6677DD;
+		font-weight:bold;
+		}
+SPAN.BSCalcpTodayTextDisabled
+		{
+		color:#D0D0D0;
+		}
+.BSCalcpBorder
+		{
+		border:solid thin #6677DD;
+		}

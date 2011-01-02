@@ -1,0 +1,1 @@
+<div id="flashContent">Flash Project Browser<script type="text/javascript">createFPObject("flashContent", "DDDLayouts", 800, 600, "#application.globalPath#/media/swf/", "opaque", 8, [{name:"ddd",value:"pressReleaseLayouts"}]);</script></div>

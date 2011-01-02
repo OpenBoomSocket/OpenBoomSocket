@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="400" height="140"
+	backgroundAlpha="1" borderAlpha=".8" title="Add/Edit Navigation Group">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			import mx.core.Application;
+			import mx.utils.ObjectUtil;
+			import mx.controls.Alert;
+			
+			[Bindable]
+			public var currentGroup:Object = new Object();
+			[Bindable]
+			public var groupTypeList:ArrayCollection = new ArrayCollection([{label:"Listing",value:"Listing"},{label:"Flyout",value:"Flyout"},{label:"Secure Listing",value:"Secure Listing"},{label:"Secure Flyout",value:"Secure Flyout"}]);
+			
+			public function setData(thisGroup:Object):void{
+				currentGroup = thisGroup;
+				groupType.selectedIndex = Application.application.dataObj.getIndexFromArrayCollection(groupTypeList,'value',currentGroup.grouptype);
+				trace(ObjectUtil.toString(currentGroup));
+			}
+			private function closePopup():void{
+				if(Application.application.dataObj.imagePopUp != null){
+					PopUpManager.removePopUp(Application.application.dataObj.imagePopUp);
+					Application.application.dataObj.imagePopUp = null
+				}
+			}
+			private function saveGroup():void{
+				trace(ObjectUtil.toString(currentGroup));
+				if(currentGroup.navgroupid != null){
+					trace()
+					Application.application.dbManager.navRO.updateNavGroup({dataStruct:currentGroup});
+				}else{
+					Application.application.dbManager.navRO.addNavGroup({dataStruct:currentGroup});
+				}
+			}
+			private function deleteGroup():void{
+				Alert.show("Do you want to remove this nav group?", "Delete", 3, this, alertDeleteHandler);
+			}
+			private function alertDeleteHandler(event:CloseEvent):void{
+				if(event.detail==Alert.YES){
+					Application.application.dbManager.navRO.delNavGroup({dataStruct:currentGroup});
+				}else{
+					Application.application.msgTxt.text = "Not Deleted";
+					closePopup();
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:Binding source="groupName.text" destination="currentGroup.navgroupname"/>
+	<mx:Binding source="groupType.selectedItem.value" destination="currentGroup.grouptype"/>
+	<mx:Form>
+		<mx:FormItem label="Group Name:">
+			<mx:TextInput id="groupName" text="{currentGroup.navgroupname}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Group Type:">
+			<mx:ComboBox id="groupType" dataProvider="{groupTypeList}" />
+		</mx:FormItem>
+	</mx:Form>
+	<mx:HBox horizontalCenter="0" bottom="10">
+		<mx:Button styleName="saveButton" label="Save" buttonDown="saveGroup()" />
+		<mx:Button styleName="deleteButton" label="Delete" buttonDown="deleteGroup()" />
+		<mx:Button styleName="cancelButton" label="Cancel" buttonDown="closePopup()" />
+	</mx:HBox>
+</mx:Panel>

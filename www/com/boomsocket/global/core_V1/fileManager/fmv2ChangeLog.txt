@@ -1,0 +1,11 @@
+Change/Update Log for I3Tools File Manager V2.
+
+10/17/05
+	- (drk) comments/documentation added to i_main.cfm
+	- (drk) Added alt/title to file management icons in i_function.cfm
+	- (drk/jlw) Fixed popup message image loss for IE browser - set height attrib for wrappers
+	- (drk) set default popup dialog position to enable dragging from header bar (onload)
+10/18/05
+	- (drk) comments/documentation completed for i_main.cfm
+4/31/06
+	- (drk) Changed fmContainer div size to 700 to prevent wrapping in IE

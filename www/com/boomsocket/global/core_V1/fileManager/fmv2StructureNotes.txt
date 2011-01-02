@@ -1,0 +1,127 @@
+Organization and structure for I3Tools File Manager V2.
+
+DataBases description primary and joined relationships
+
+Table:	client
+fields:		clientid - (int 4)
+		datecreated - (datetime 8)
+		datemodified - (datetime 8)
+		parentid - (int 4) Fk for ?
+		ordinal - (int 4)
+		clientName - (nvarchar 150)
+		primaryContact - (nvarchar 150)
+		active - (bit 1)
+
+Table:	component
+fields:		componentid - (int 4)
+		datecreated - (datetime 8)
+		datemodified - (datetime 8)
+		parentid - (int 4) Fk for ?
+		ordinal - (int 4)
+		componentname - (nvarchar 100)
+		description - (ntext 16)
+		minhours - (float 8)
+		active - (bit 1)
+
+Table:	estimate - saved estimate results
+fields:		estimateid - (int 4)
+		datecreated - (datetime 8)
+		datemodified - (datetime 8)
+		parentid - (int 4)
+		ordinal - (int 4)
+		estimatename - (nvarchar 150)
+		totalHours - (float 8)
+		totalLaborCost - (float 8)
+		percentMargin - (float 8)
+		estimateTotalCost - (float 8)
+		percentTesting - (float 8)
+		percentManagement - (float 8)
+		clientid - (int 4)
+		status - (nvarchar 100)
+		thirdPartyTotalCost - (float 8)
+		feeTotalCost - (float 8)
+		estimateGrandTotalRetail - (float 8)
+		totalDifference - (float 8)
+		dupefrom - (int 4)
+
+Table:	estimatecategory
+fields:		estimatecategoryid - (int 4)
+		datecreated - (datetime 8)
+		datemodified - (datetime 8)
+		parentid - (int 4) Fk for ?
+		ordinal - (int 4)
+		estimatecategoryname - (nvarchar 100)
+		active - (bit 1)
+	
+Table:	estimateItem
+fields:		estimateItemid - (int 4)
+		datecreated - (datetime 8)
+		datemodified - (datetime 8)
+		parentid - (int 4) Fk for ?
+		ordinal - (int 4)
+		estimatItemName - (nvarchar 250)
+		description - (ntext 16)
+		estimateCategoryID - (int 4)
+		active - (bit 1)
+		phaseid - (int 4)
+
+Table:	fee
+fields:		feeid - (int 4)
+		datecreated - (datetime 8)
+		datemodified - (datetime 8)
+		parentid - (int 4) Fk for ?
+		ordinal - (int 4)
+		feename - (nvarchar 50)
+		amount - (float 8)
+		phaseid - (int 4)
+		active - (bit 1)
+
+Table:	ratecategory
+fields:		ratecategoryid - (int 4)
+		datecreated - (datetime 8)
+		datemodified - (datetime 8)
+		parentid - (int 4) Fk for ?
+		ordinal - (int 4)
+		ratecategoryname - (nvarchar 150)
+		description - (ntext 16)
+		retail - (float 8)
+		cost - (float 8)
+		active - (bit 1)
+
+Table:	vendor
+fields:		vendorid - (int 4)
+		datecreated - (datetime 8)
+		datemodified - (datetime 8)
+		parentid - (int 4) Fk for ?
+		ordinal - (int 4)
+		vendorName - (nvarchar 150)
+		hourlyRate - (float 8)
+		skill - (nvarchar 150)
+		percentMarkup - (int 4)
+		phaseidd - (int 4)
+
+Table:	estimate_estimateitem - relationship
+fields:		estimateid - (int 4)
+		estimateitemid - (int 4)
+		description - (text 16)
+		active - (bit 1)
+
+Table:	estimate_fee - relationship
+fields:		estimateid - (int 4)
+		feeid - (int 4)
+
+Table:	estimate_vendor - relationship
+fields:		estimateid - (int 4)
+		vendorid - (int 4)
+		hours - (float 8)
+		cost - (float 8)
+		markup - (float 8)
+		retail - (float 8)
+
+Table:	estimatedata - saved estimate results relationships
+fields:		estimateid - (int 4)
+		estimeitemid - (int 4)
+		componentid - (int 4)
+		ratecategoryid - (int 4)
+		hours - (int 4)
+		active - (bit 1)

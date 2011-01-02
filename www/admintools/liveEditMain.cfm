@@ -1,0 +1,1 @@
+<iframe id="liveEditFrame" name="liveEditFrame" src="<cfoutput>#application.installURL#</cfoutput>/home/index.cfm" width="100%" height="400" frameborder="1" onload="resize_iframe();"></iframe><script type="text/javascript">womGo();</script>

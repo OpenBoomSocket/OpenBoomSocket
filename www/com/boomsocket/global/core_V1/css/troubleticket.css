@@ -1,0 +1,25 @@
+.ticket_Summary td, .ticket_Detail_hidden td, .ticket_Detail_show td, .ticket_table th{
+	BACKGROUND-COLOR: #dadada;
+	COLOR: black;
+	FONT-SIZE: 11px;
+	PADDING: 5px;
+}
+.ticket_table th{
+	font-weight: bold;
+	text-align: left;
+	background-color: #cccccc;
+}
+.blankarea{
+	background-color: #cccccc;
+	width: 10px;
+}
+.ticket_Detail_hidden{
+	display: none;
+}
+.ticketForm div{
+	padding: 5px;
+}
+.ticketForm label{
+	width: 70px;
+	float: left;
+}

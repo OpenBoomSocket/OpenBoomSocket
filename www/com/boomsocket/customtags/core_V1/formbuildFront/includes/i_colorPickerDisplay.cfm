@@ -1,0 +1,5 @@
+<cfoutput>
+	<cfset thisFormVal=evaluate('form.#a_formelements[a].fieldname#')>
+	<input name="#a_formelements[a].fieldname#" id="#a_formelements[a].fieldname#" type="text" size="#a_formelements[a].width#" class="#a_formelements[a].inputstyle#" maxlength="#a_formelements[a].maxlength#" value="#listfirst(thisFormVal,'~')#"<cfif a_formelements[a].readonly EQ 1> readonly="readonly"</cfif><cfif len(a_formelements[a].tabindex)> tabindex="#a_formelements[a].tabindex#"</cfif>>
+	<a href="##" onclick="javascript:window.open('/admintools/includes/i_colorPickerPopup.cfm?field=#a_formelements[a].fieldname#&value=#thisFormVal#','selectColor','width=450,height=400')" title="Click To Change Color" name="anchor1" id="anchor1">Select Color<div id="#a_formelements[a].fieldname#Color" name="#a_formelements[a].fieldname#Color" style="background-color: ###listfirst(thisFormVal,'~')#; width: 60px; height: 20px; padding: 0; margin: 0; border: solid 1px ##000;"/></a>
+</cfoutput>

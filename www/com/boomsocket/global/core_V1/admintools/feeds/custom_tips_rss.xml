@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	TEMPLATE for new Items
+		<item>
+			<title>TITLE</title> 
+			<link>LINK</link>
+			<comments>COMMENTS</comments>
+			<category>CATEGORY 2</category>
+			<category>CATEGORY 2</category>
+			<description>DESCRIPTION</description> 
+			<pubDate>PUBDATE</pubDate> 
+			<guid>GUID</guid> 
+		</item>	
+-->
+<rss version="2.0">
+	<channel>
+		<title>Tips &amp; Tricks for Custom Sockets</title> 
+		<link>/admintools/index.cfm?adminPage=sockets.cfm</link> 
+		<description>Tips &amp; Tricks for Custom Sockets</description> 
+		<copyright>2007</copyright>
+		<language>en-us</language> 
+		<lastBuildDate>06/15/2007 00:00:00 GMT</lastBuildDate> 
+		<docs>http://blogs.law.harvard.edu/tech/rss</docs> 
+		<item>
+			<title>TITLE</title> 
+			<link>LINK</link>
+			<comments>COMMENTS</comments>
+			<category>CATEGORY 2</category>
+			<category>CATEGORY 2</category>
+			<description>DESCRIPTION</description> 
+			<pubDate>PUBDATE</pubDate> 
+			<guid>GUID</guid> 
+		</item>	
+	</channel>
+</rss>

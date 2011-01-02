@@ -1,0 +1,613 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Zip Component v1.1 Documentation</title>
+
+	<!-- Cascading Style Sheets -->
+	<style type="text/css">
+	<!--
+
+		body      { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif; font-size: 11px; }
+
+		h1, h3    { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif; }
+		h1        { font-size: 15px; }
+		h3        { font-size: 11px; margin-bottom: 7px; }
+
+		p         { margin: 0 0 15px 0; }
+
+		ul        { margin-left: 24px; padding: 0; }
+
+		a         { color: #005FA9; text-decoration: none; }
+		a:visited { color: #A367B1; }
+		a:hover   { background: #DDEEFF; }
+
+		table     { border-collapse: collapse; margin: 5px 0 10px 0; }
+		td, th    { border: 1px solid #B6C0C3; padding: 5px 10px 5px 10px; vertical-align: top; }
+		th        { background: #DEDEDE; text-align: left; }
+		tr.row    { background: #F8F8F8; }
+
+		pre, code { font-family: "Courier New", courier, monospace; font-size: 12px; }
+
+		.red      { color: #CC0000; }
+
+	-->
+	</style>
+
+</head>
+<body>
+
+	<a name="top"></a>
+	<h1>Zip Component v1.1 Documentation</h1>
+
+	<p>A collection of functions that supports the Zip and GZip functionality by using the Java Zip file API.</p>
+
+	<h3>Functions</h3>
+
+	<ul>
+	 <li><a href="#AddFiles" title="AddFiles">AddFiles</a></li>
+	 <li><a href="#DeleteFiles" title="DeleteFiles">DeleteFiles</a></li>
+	 <li><a href="#Extract" title="Extract">Extract</a></li>
+	 <li><a href="#List" title="List">List</a></li>
+	 <li><a href="#gzipAddFile" title="gzipAddFile">gzipAddFile</a></li>
+	 <li><a href="#gzipExtract" title="gzipExtract">gzipExtract</a></li>
+	</ul>
+
+	<h1>Notice</h1>
+	<p>For comments, bug reports or suggestions to optimise this component, feel free to send a E-Mail: <a href="mailto:info@newsight.de" title="info@newsight.de">info@newsight.de</a></p>
+
+	<h1>License</h1>
+	<p>
+	 THIS IS A OPEN SOURCE COMPONENT. YOU ARE FREE TO USE THIS COMPONENT IN ANY APPLICATION,
+	 TO COPY IT OR MODIFY THE FUNCTIONS FOR YOUR OWN NEEDS, AS LONG THIS HEADER INFORMATION
+	 REMAINS IN TACT AND YOU DON'T CHARGE ANY MONEY FOR IT. USE THIS COMPONENT AT YOUR OWN
+	 RISK. NO WARRANTY IS EXPRESSED OR IMPLIED, AND NO LIABILITY ASSUMED FOR THE RESULT OF
+	 USING THIS COMPONENT.
+	</p>
+
+	<p>
+	 THIS COMPONENT IS LICENSED UNDER THE CREATIVE COMMONS ATTRIBUTION-SHAREALIKE LICENSE.
+	 FOR THE FULL LICENSE TEXT PLEASE VISIT: <a href="http://creativecommons.org/licenses/by-sa/2.5/" title="Creative Commons Attribution-Sharealike License" target="_blank">http://creativecommons.org/licenses/by-sa/2.5/</a>
+	</p>
+
+	<hr size="1">
+
+	<a name="AddFiles"></a>
+	<h1>AddFiles</h1>
+
+	<h3>Description</h3>
+	<p>Add files to a new or an existing Zip file archive.</p>
+
+	<h3>Returns</h3>
+	<p>True, if files been add to Zip file; False, otherwise.</p>
+
+	<h3>Function syntax</h3>
+	<p><code>AddFiles(zipFilePath [, files, directory, filter, recurse, compression, savePaths])</code></p>
+
+	<h3>See also</h3>
+
+	<p>
+	 <a href="#DeleteFiles" title="DeleteFiles">DeleteFiles</a>,
+	 <a href="#Extract" title="Extract">Extract</a>,
+	 <a href="#List" title="List">List</a>,
+	 <a href="#gzipAddFile" title="gzipAddFile">gzipAddFile</a>,
+	 <a href="#gzipExtract" title="gzipExtract">gzipExtract</a>
+	</p>
+
+	<h3>Arguments</h3>
+
+	<table border="0" cellpadding="0" cellspacing="0">
+	 <tbody>
+	  <tr>
+	   <th>Argument</th>
+	   <th>Req/Opt</th>
+	   <th>Type</th>
+	   <th>Default</th>
+	   <th>Description</th>
+	  </tr>
+
+	  <tr>
+	   <td>zipFilePath</td>
+	   <td>Required</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>Pathname of the Zip file to add files.</td>
+	  </tr>
+
+	  <tr class="row">
+	   <td>files</td>
+	   <td>Optional</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>| <em>(Chr(124))</em> delimited list of files to add to the Zip file. Required if argument <code>directory</code> is not set.</td>
+	  </tr>
+
+	  <tr>
+	   <td>directory</td>
+	   <td>Optional</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>Absolute pathname of directory to add to the Zip file. Required if argument <code>files</code> is not set.</td>
+	  </tr>
+
+	  <tr class="row">
+	   <td>filter</td>
+	   <td>Optional</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>File extension filter. One filter can be applied. Only if argument <code>directory</code> is set.</td>
+	  </tr>
+
+	  <tr>
+	   <td>recurse</td>
+	   <td>Optional</td>
+	   <td>boolean</td>
+	   <td>no</td>
+	   <td>Get recursive files of subdirectories. Only if argument <code>directory</code> is set.</td>
+	  </tr>
+
+	  <tr class="row">
+	   <td>compression</td>
+	   <td>Optional</td>
+	   <td>numeric</td>
+	   <td>9</td>
+	   <td>Compression level (0 through 9, 0=minimum, 9=maximum).</td>
+	  </tr>
+
+	  <tr>
+	   <td>savePaths</td>
+	   <td>Optional</td>
+	   <td>boolean</td>
+	   <td>no</td>
+	   <td>Save full path info.</td>
+	  </tr>
+	 </tbody>
+	</table>
+	
+	<h3>Usage</h3>
+	<p>Use the <code>recurse</code> argument carefully. If your specified directory have many subdirectorys or files your system may hang up.</p>
+	
+	<p><strong class="red">Notice:</strong> Special characters in filenames will not be supported. Filenames including special characters will be false encoded. That is a general problem on the Java Zip API.</p>
+
+	<h3>Example</h3>
+
+<pre>&lt;h3&gt;AddFiles Example&lt;/h3&gt;
+
+&lt;cfscript&gt;
+
+ /* Create an instance of a component object */
+ zip = CreateObject(“component”, “Zip”);
+
+ /* Add files to Zip file */
+ status = zip.AddFiles(“c:\myFile.zip”, “c:\myFile_1.txt|c:\myFile_2.txt|c:\myFile_3.txt”);
+
+&lt;/cfscript&gt;
+
+&lt;cfdump var=”#status#”&gt;
+</pre>
+
+	<a href="#top">Top</a>
+
+	<hr size="1">
+
+
+	<a name="DeleteFiles"></a>
+	<h1>DeleteFiles</h1>
+
+	<h3>Description</h3>
+	<p>Delete files from an existing Zip file archive.</p>
+
+	<h3>Returns</h3>
+	<p>True, if files been deleted from the Zip file; False, otherwise.</p>
+
+	<h3>Function syntax</h3>
+	<p><code>DeleteFiles(zipFilePath, files)</code></p>
+
+	<h3>See also</h3>
+
+	<p>
+	 <a href="#AddFiles" title="AddFiles">AddFiles</a>,
+	 <a href="#Extract" title="Extract">Extract</a>,
+	 <a href="#List" title="List">List</a>,
+	 <a href="#gzipAddFile" title="gzipAddFile">gzipAddFile</a>,
+	 <a href="#gzipExtract" title="gzipExtract">gzipExtract</a>
+	</p>
+
+	<h3>Arguments</h3>
+
+	<table border="0" cellpadding="0" cellspacing="0">
+	 <tbody>
+	  <tr>
+	   <th>Argument</th>
+	   <th>Req/Opt</th>
+	   <th>Type</th>
+	   <th>Default</th>
+	   <th>Description</th>
+	  </tr>
+
+	  <tr>
+	   <td>zipFilePath</td>
+	   <td>Required</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>Pathname of the Zip file to delete files from.</td>
+	  </tr>
+
+	  <tr class="row">
+	   <td>files</td>
+	   <td>Required</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>| <em>(Chr(124))</em> delimited list of files to delete from Zip file.</td>
+	  </tr>
+	 </tbody>
+	</table>
+	
+	<h3>Usage</h3>
+	<p>To delete a file from a Zip file, you have to specified the full entryname. The entryname contains the filename and the path info stored in the Zip file. To get the entryname you can also use the <code>List()</code> function.</p>
+	
+	<p><strong class="red">Notice:</strong> Because there is no function in the Java Zip API to delete files from a Zip file, a workaround been created. At first a new temporary Zip file will be created, where all files excluded the deleted will be saved. Then the orginal Zip file will be deleted and the temporary Zip file be renamed.</p>
+
+	<h3>Example</h3>
+
+<pre>&lt;h3&gt;DeleteFiles Example&lt;/h3&gt;
+
+&lt;cfscript&gt;
+
+ /* Create an instance of a component object */
+ zip = CreateObject(“component”, “Zip”);
+
+ /* Delete files from Zip file */
+ status = zip.DeleteFiles(“c:\myFile.zip”, “myFile_1.txt|myFolder\myFile_2.txt”);
+
+&lt;/cfscript&gt;
+
+&lt;cfdump var=”#status#”&gt;
+</pre>
+
+	<a href="#top">Top</a>
+
+	<hr size="1">
+
+
+	<a name="Extract"></a>
+	<h1>Extract</h1>
+
+	<h3>Description</h3>
+	<p>Extracts a specified Zip file into a specified directory.</p>
+
+	<h3>Returns</h3>
+	<p>True, if all files has been extract; False, otherwise.</p>
+
+	<h3>Function syntax</h3>
+	<p><code>Extract(zipFilePath [, extractPath, extractFiles, useFolderNames, overwriteFiles])</code></p>
+
+	<h3>See also</h3>
+
+	<p>
+	 <a href="#AddFiles" title="AddFiles">AddFiles</a>,
+	 <a href="#DeleteFiles" title="DeleteFiles">DeleteFiles</a>,
+	 <a href="#List" title="List">List</a>,
+	 <a href="#gzipAddFile" title="gzipAddFile">gzipAddFile</a>,
+	 <a href="#gzipExtract" title="gzipExtract">gzipExtract</a>
+	</p>
+
+	<h3>Arguments</h3>
+
+	<table border="0" cellpadding="0" cellspacing="0">
+	 <tbody>
+	  <tr>
+	   <th>Argument</th>
+	   <th>Req/Opt</th>
+	   <th>Type</th>
+	   <th>Default</th>
+	   <th>Description</th>
+	  </tr>
+
+	  <tr>
+	   <td>zipFilePath</td>
+	   <td>Required</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>Pathname of the Zip file to extract.</td>
+	  </tr>
+
+	  <tr class="row">
+	   <td>extractPath</td>
+	   <td>Optional</td>
+	   <td>string</td>
+	   <td><em>{local Directory}</em></td>
+	   <td>Pathname to extract the Zip file to.</td>
+	  </tr>
+
+	  <tr>
+	   <td>extractFiles</td>
+	   <td>Optional</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>| <em>(Chr(124))</em> delimited list of files to extract.</td>
+	  </tr>
+
+	  <tr class="row">
+	   <td>useFolderNames</td>
+	   <td>Optional</td>
+	   <td>boolean</td>
+	   <td>yes</td>
+	   <td>Create folders using the pathinfo stored in the Zip file.</td>
+	  </tr>
+
+	  <tr>
+	   <td>overwriteFiles</td>
+	   <td>Optional</td>
+	   <td>boolean</td>
+	   <td>no</td>
+	   <td>Overwrite existing files.</td>
+	  </tr>
+	 </tbody>
+	</table>
+
+	<h3>Usage</h3>
+	<p><strong class="red">Notice:</strong> Because the special character encoding is a general problem on the Java Zip API, the extraction of all files including special characters in their names will be skiped.</p>
+
+	<h3>Example</h3>
+
+<pre>&lt;h3&gt;Extract Example&lt;/h3&gt;
+
+&lt;cfscript&gt;
+
+ /* Create an instance of a component object */
+ zip = CreateObject(“component”, “Zip”);
+
+ /* Extract Zip file */ 
+ status = zip.Extract(“c:\myFile.zip”, “c:\myFolder”);
+
+&lt;/cfscript&gt;
+
+&lt;cfdump var=”#status#”&gt;
+</pre>
+
+	<a href="#top">Top</a>
+
+	<hr size="1">
+
+
+	<a name="List"></a>
+	<h1>List</h1>
+
+	<h3>Description</h3>
+	<p>List the content of a specified Zip file.</p>
+
+	<h3>Returns</h3>
+	<p>An query.</p>
+
+	<h3>Function syntax</h3>
+	<p><code>List(zipFilePath)</code></p>
+
+	<h3>See also</h3>
+
+	<p>
+	 <a href="#AddFiles" title="AddFiles">AddFiles</a>,
+	 <a href="#DeleteFiles" title="DeleteFiles">DeleteFiles</a>,
+	 <a href="#Extract" title="Extract">Extract</a>,
+	 <a href="#gzipAddFile" title="gzipAddFile">gzipAddFile</a>,
+	 <a href="#gzipExtract" title="gzipExtract">gzipExtract</a>
+	</p>
+
+	<h3>Arguments</h3>
+
+	<table border="0" cellpadding="0" cellspacing="0">
+	 <tbody>
+	  <tr>
+	   <th>Argument</th>
+	   <th>Req/Opt</th>
+	   <th>Type</th>
+	   <th>Default</th>
+	   <th>Description</th>
+	  </tr>
+
+	  <tr>
+	   <td>zipFilePath</td>
+	   <td>Required</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>Pathname of the Zip file to list the content.</td>
+	  </tr>
+	 </tbody>
+	</table>
+
+	<h3>Usage</h3>
+	<p><code>List</code> returns the following result columns:</p>
+	
+	<ul>
+	 <li><code>entry</code> The name of Zip file entry.</li>
+	 <li><code>date</code> The modification date/time of the entry.</li>
+	 <li><code>size</code> The uncompressed size of the entry data.</li>
+	 <li><code>packed</code>  The compressed size of the entry data.</li>
+	 <li><code>ratio</code> The compression ratio in percent.</li>
+	 <li><code>crc</code> The CRC checksum of the uncompressed entry data.</li>
+	</ul>
+	
+	<p><strong class="red">Notice:</strong> Special characters in file/pathnames will not be displayed.</p>
+
+	<h3>Example</h3>
+
+<pre>&lt;h3&gt;List Example&lt;/h3&gt;
+
+&lt;cfscript&gt;
+
+ /* Create an instance of a component object */
+ zip = CreateObject(“component”, “Zip”);
+
+ /* Get Zip file content */ 
+ content = zip.List(“c:\myFile.zip”);
+
+&lt;/cfscript&gt;
+
+&lt;cfdump var=”#content#”&gt;
+</pre>
+
+	<a href="#top">Top</a>
+
+	<hr size="1">
+
+
+	<a name="gzipAddFile"></a>
+	<h1>gzipAddFile</h1>
+
+	<h3>Description</h3>
+	<p>Create a new GZip file archive.</p>
+
+	<h3>Returns</h3>
+	<p>True, if file been add to GZip file; False, otherwise.</p>
+
+	<h3>Function syntax</h3>
+	<p><code>gzipAddFiles(gzipFilePath, filePath)</code></p>
+
+	<h3>See also</h3>
+
+	<p>
+	 <a href="#AddFiles" title="AddFiles">AddFiles</a>,
+	 <a href="#DeleteFiles" title="DeleteFiles">DeleteFiles</a>,
+	 <a href="#Extract" title="Extract">Extract</a>,
+	 <a href="#List" title="List">List</a>,
+	 <a href="#gzipExtract" title="gzipExtract">gzipExtract</a>
+	</p>
+
+	<h3>History</h3>
+	
+	<p>Version 1.1: Added this function.</p>
+
+	<h3>Arguments</h3>
+
+	<table border="0" cellpadding="0" cellspacing="0">
+	 <tbody>
+	  <tr>
+	   <th>Argument</th>
+	   <th>Req/Opt</th>
+	   <th>Type</th>
+	   <th>Default</th>
+	   <th>Description</th>
+	  </tr>
+
+	  <tr>
+	   <td>gzipFilePath</td>
+	   <td>Required</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>Pathname of the GZip file to create.</td>
+	  </tr>
+
+	  <tr class="row">
+	   <td>filePath</td>
+	   <td>Required</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>Pathname of a file to add to the GZip file archive.</td>
+	  </tr>
+	 </tbody>
+	</table>
+	
+	<h3>Example</h3>
+
+<pre>&lt;h3&gt;gzipAddFile Example&lt;/h3&gt;
+
+&lt;cfscript&gt;
+
+ /* Create an instance of a component object */
+ zip = CreateObject(“component”, “Zip”);
+
+ /* Add file to GZip file */
+ status = zip.gzipAddFile(“c:\”, “c:\myFile.txt”);
+
+&lt;/cfscript&gt;
+
+&lt;cfdump var=”#status#”&gt;
+</pre>
+
+	<a href="#top">Top</a>
+
+	<hr size="1">
+
+
+	<a name="gzipExtract"></a>
+	<h1>gzipExtract</h1>
+
+	<h3>Description</h3>
+	<p>Extracts a specified GZip file into a specified directory.</p>
+
+	<h3>Returns</h3>
+	<p>True, if file has been extract; False, otherwise.</p>
+
+	<h3>Function syntax</h3>
+	<p><code>gzipExtract(gzipFilePath [, extractPath])</code></p>
+
+	<h3>See also</h3>
+
+	<p>
+	 <a href="#AddFiles" title="AddFiles">AddFiles</a>,
+	 <a href="#DeleteFiles" title="DeleteFiles">DeleteFiles</a>,
+	 <a href="#Extract" title="Extract">Extract</a>,
+	 <a href="#List" title="List">List</a>,
+	 <a href="#gzipAddFile" title="gzipAddFile">gzipAddFile</a>
+	</p>
+
+	<h3>History</h3>
+	
+	<p>Version 1.1: Added this function.</p>
+
+	<h3>Arguments</h3>
+
+	<table border="0" cellpadding="0" cellspacing="0">
+	 <tbody>
+	  <tr>
+	   <th>Argument</th>
+	   <th>Req/Opt</th>
+	   <th>Type</th>
+	   <th>Default</th>
+	   <th>Description</th>
+	  </tr>
+
+	  <tr>
+	   <td>gzipFilePath</td>
+	   <td>Required</td>
+	   <td>string</td>
+	   <td>&nbsp;</td>
+	   <td>Pathname of the GZip file to extract.</td>
+	  </tr>
+
+	  <tr class="row">
+	   <td>extractPath</td>
+	   <td>Optional</td>
+	   <td>string</td>
+	   <td><em>{local Directory}</em></td>
+	   <td>Pathname to extract the GZip file to.</td>
+	  </tr>
+	 </tbody>
+	</table>
+	
+	<h3>Example</h3>
+
+<pre>&lt;h3&gt;gzipExtract Example&lt;/h3&gt;
+
+&lt;cfscript&gt;
+
+ /* Create an instance of a component object */
+ zip = CreateObject(“component”, “Zip”);
+
+ /* Extract GZip file */
+ status = zip.gzipExtract(“c:\myFile.txt.gz”, "c:\");
+
+&lt;/cfscript&gt;
+
+&lt;cfdump var=”#status#”&gt;
+</pre>
+
+	<a href="#top">Top</a>
+
+	<hr size="1">
+
+
+	<p>copyright &copy; 2005 by newsight application development</p>
+
+</body>
+</html>
+

@@ -1,0 +1,1 @@
+<cfinclude template="#application.globalPath#/admintools/i_login.cfm">

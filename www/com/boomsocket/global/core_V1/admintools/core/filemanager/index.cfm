@@ -1,0 +1,1 @@
+<cfinclude template="#application.globalPath#/fileManager/i_main.cfm">

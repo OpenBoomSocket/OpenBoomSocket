@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import views.ToolPod;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.core.Application;
+			import mx.controls.Alert;
+			import mx.utils.ObjectUtil;
+			
+			[Bindable]
+			private var appObj:Object;
+			
+			private function init():void{
+				appObj = Application.application;
+			}
+			public function getCatListResult( event:ResultEvent ):void{
+				appObj.dataObj.catList = new ArrayCollection();
+				if(event.result.length){
+					appObj.dataObj.catList = event.result[1];
+				}
+				trace('c '+appObj.dataObj.catList.length+" "+appObj.dataObj.toolList.length);
+				if(appObj.dataObj.catList.length && appObj.dataObj.toolList.length){
+					appObj.configWin.catList = appObj.dataObj.catList;
+					appObj.configWin.toolList = appObj.dataObj.toolList;
+					appObj.configWin.buildToolList();
+				}
+			}
+			public function getFormListResult( event:ResultEvent ):void{
+				trace(ObjectUtil.toString(event.result));
+				var orderedList:ArrayCollection = new ArrayCollection();
+				for(var i:uint=0 ; i <appObj.dataObj.toolIDs.split(',').length ; i++){
+					for(var j:uint=0 ; j <event.result.length ; j++){
+						if(appObj.dataObj.toolIDs.split(',')[i] == event.result.getItemAt(j).formobjectid ){
+							orderedList.addItem(event.result.getItemAt(j));
+						}
+					}
+				}
+				appObj.fillpods(orderedList);
+			}
+			public function getToolListResult( event:ResultEvent ):void{
+				appObj.dataObj.toolList = new ArrayCollection();
+				if(event.result.length){
+					appObj.dataObj.toolList = event.result;
+				}
+				if(appObj.dataObj.catList.length && appObj.dataObj.toolList.length){
+					appObj.configWin.catList = appObj.dataObj.catList;
+					appObj.configWin.toolList = appObj.dataObj.toolList;
+					appObj.configWin.buildToolList();
+				}
+			}
+			public function getToolDataResult( event:ResultEvent ):void{
+				var newPod:Object = new Object();
+				var itemList:ArrayCollection = new ArrayCollection();
+				var itemData:Object;
+				var index:uint;
+				newPod.podLabel= event.result[0].getItemAt(0).label;
+				for(index=0 ; index<event.result[1].length ; index++){
+					itemData = new Object();
+					var fields:Array = event.result[0].getItemAt(0).editFieldKeyValue.split(',');
+					itemData.label = event.result[1].getItemAt(index)[fields[0]];
+					itemData.fullLabel = event.result[1].getItemAt(index)[fields[0]];
+					for(var j:uint=1 ; j<fields.length ; j++){
+						if(String(fields[j]).indexOf('date') == -1){
+							itemData.fullLabel += " - "+event.result[1].getItemAt(index)[fields[j]];
+						}else{
+							itemData.fullLabel += " - "+dateFmt.format(new Date(event.result[1].getItemAt(index)[fields[j]]));
+						}
+					}
+					itemData.date = dateFmt.format(new Date(event.result[1].getItemAt(index).datecreated));
+					itemData.instanceID = event.result[1].getItemAt(index)[event.result[0].getItemAt(0).datatable+'id'];
+					itemList.addItem(itemData);
+				}
+				newPod.listItems = itemList;
+				newPod.podLabel= event.result[0].getItemAt(0).label;
+				newPod.toolID =  event.result[0].getItemAt(0).formobjectid;
+				appObj.dataObj.podList.addItem(newPod);
+			}
+			/**
+			* alert db error
+			*/
+			public function dbFault( event:FaultEvent ):void{
+				var thisAlert:Alert = Alert.show("Database Fault "+ObjectUtil.toString(event.fault)+catlistRO.source);
+				thisAlert.percentWidth = 70;
+			}
+		]]>
+	</mx:Script>
+	<mx:DateFormatter id="dateFmt"/>
+	<mx:RemoteObject id="catlistRO" destination="ColdFusion" source="{appObj.sitemapping}.admintools.components.formInstance" showBusyCursor="true">
+		<mx:method makeObjectsBindable="true" name="getFormDataFlex" result="{getCatListResult(event)}" fault="{dbFault(event)}" />
+	</mx:RemoteObject>
+	<mx:RemoteObject id="formlistRO" destination="ColdFusion" source="{appObj.sitemapping}.admintools.components.formInstance" showBusyCursor="true">
+		<mx:method makeObjectsBindable="true" name="getToolInfo" result="{getToolListResult(event)}" fault="{dbFault(event)}" />
+		<mx:method makeObjectsBindable="true" name="getFormData" result="{getFormListResult(event)}" fault="{dbFault(event)}" />
+	</mx:RemoteObject>
+	<mx:RemoteObject id="formdataRO" destination="ColdFusion" source="{appObj.sitemapping}.admintools.components.formInstance" showBusyCursor="true">
+		<mx:method makeObjectsBindable="true" name="getFormDataFlex" result="{getToolDataResult(event)}" fault="{dbFault(event)}" />
+	</mx:RemoteObject>
+	<mx:RemoteObject id="toolsRO" destination="ColdFusion" source="{appObj.sitemapping}.admintools.components.dashboard" showBusyCursor="true">
+		<mx:method makeObjectsBindable="true" name="writeToolList" fault="{dbFault(event)}" />
+	</mx:RemoteObject>
+</mx:Canvas>

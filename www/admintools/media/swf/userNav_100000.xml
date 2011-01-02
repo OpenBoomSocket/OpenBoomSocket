@@ -1,0 +1,100 @@
+
+		<?xml version="1.0" encoding="iso-8859-1"?>
+		<root>
+		
+			
+				<menu label="Site Content" icon="icon_i3">
+				
+				<submenu label="Articles" href="/admintools/main.cfm?i3currenttool=100036" target="mainFrame" />
+				
+				<submenu label="Content Element" href="/admintools/main.cfm?i3currenttool=109" target="mainFrame" />
+				
+				<submenu label="File Manager" href="/admintools/main.cfm?i3currenttool=115" target="mainFrame" />
+				
+				<submenu label="Review Queue" href="/admintools/main.cfm?i3currenttool=119" target="mainFrame" />
+				
+				</menu>
+			
+				<menu label="People Management" icon="icon_i3">
+				
+				<submenu label="Contact Submissions" href="/admintools/main.cfm?i3currenttool=100000" target="mainFrame" />
+				
+				</menu>
+			
+				<menu label="Site Administration" icon="icon_i3">
+				
+				<submenu label="Admin Tool Permissions" href="/admintools/main.cfm?i3currenttool=110" target="mainFrame" />
+				
+				<submenu label="Data Driven Display" href="/admintools/main.cfm?i3currenttool=104" target="mainFrame" />
+				
+				<submenu label="Meta Data" href="/admintools/main.cfm?i3currenttool=113" target="mainFrame" />
+				
+				<submenu label="Nav Item Address" href="/admintools/main.cfm?i3currenttool=100010" target="mainFrame" />
+				
+				<submenu label="Navigation (old)" href="/admintools/main.cfm?i3currenttool=126" target="mainFrame" />
+				
+				<submenu label="Navigation Group" href="/admintools/main.cfm?i3currenttool=100008" target="mainFrame" />
+				
+				<submenu label="Navigation Group (old)" href="/admintools/main.cfm?i3currenttool=128" target="mainFrame" />
+				
+				<submenu label="Navigation Item" href="/admintools/main.cfm?i3currenttool=100009" target="mainFrame" />
+				
+				<submenu label="Navigation Manager" href="/admintools/main.cfm?i3currenttool=100011" target="mainFrame" />
+				
+				<submenu label="Navigation Manager (old)" href="/admintools/main.cfm?i3currenttool=137" target="mainFrame" />
+				
+				<submenu label="Navigation Settings (old)" href="/admintools/main.cfm?i3currenttool=127" target="mainFrame" />
+				
+				<submenu label="Page" href="/admintools/main.cfm?i3currenttool=103" target="mainFrame" />
+				
+				<submenu label="Page Component Wizard" href="/admintools/main.cfm?i3currenttool=124" target="mainFrame" />
+				
+				<submenu label="Section" href="/admintools/main.cfm?i3currenttool=102" target="mainFrame" />
+				
+				<submenu label="Supervisor" href="/admintools/main.cfm?i3currenttool=118" target="mainFrame" />
+				
+				<submenu label="Template" href="/admintools/main.cfm?i3currenttool=101" target="mainFrame" />
+				
+				<submenu label="User Types" href="/admintools/main.cfm?i3currenttool=107" target="mainFrame" />
+				
+				<submenu label="Users" href="/admintools/main.cfm?i3currenttool=106" target="mainFrame" />
+				
+				</menu>
+			
+				<menu label="Developer Use Only" icon="icon_i3">
+				
+				<submenu label="Ad-Hoc Form Fields" href="/admintools/main.cfm?i3currenttool=100012" target="mainFrame" />
+				
+				<submenu label="Display Object" href="/admintools/main.cfm?i3currenttool=105" target="mainFrame" />
+				
+				<submenu label="Form Builder" href="/admintools/main.cfm?i3currenttool=117" target="mainFrame" />
+				
+				<submenu label="Form Environment" href="/admintools/main.cfm?i3currenttool=100" target="mainFrame" />
+				
+				<submenu label="Javascript Manager" href="/admintools/main.cfm?i3currenttool=120" target="mainFrame" />
+				
+				<submenu label="Navigation-Able data" href="/admintools/main.cfm?i3currenttool=100013" target="mainFrame" />
+				
+				<submenu label="Site Settings" href="/admintools/main.cfm?i3currenttool=114" target="mainFrame" />
+				
+				<submenu label="Sockets" href="/admintools/main.cfm?i3currenttool=100032" target="mainFrame" />
+				
+				<submenu label="Tool Builder" href="/admintools/main.cfm?i3currenttool=116" target="mainFrame" />
+				
+				<submenu label="Tool Category" href="/admintools/main.cfm?i3currenttool=108" target="mainFrame" />
+				
+				</menu>
+			
+				<menu label="Site Planning" icon="icon_i3">
+				
+				<submenu label="Prototype Note Category" href="/admintools/main.cfm?i3currenttool=135" target="mainFrame" />
+				
+				<submenu label="Prototype Note Priority" href="/admintools/main.cfm?i3currenttool=136" target="mainFrame" />
+				
+				<submenu label="Prototype Notes" href="/admintools/main.cfm?i3currenttool=134" target="mainFrame" />
+				
+				</menu>
+			
+		
+		</root>
+		

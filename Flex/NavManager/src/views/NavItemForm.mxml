@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Form xmlns:mx="http://www.adobe.com/2006/mxml" label="Navigation Item" styleName="ItemNotSelected">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CloseEvent;
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+			import valueObjects.NavItem;
+			import mx.core.Application;
+			import mx.utils.ObjectUtil;
+			import mx.managers.PopUpManager;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var targetList:ArrayCollection = new ArrayCollection([{label:"<- Select ->",value:""},{label:"Same Window",value:"_self"},{label:"New Window",value:"_blank"},{label:"Parent Frame",value:"_parent"},{label:"Custom Target",value:"0"}]);
+			[Bindable]
+			public var currentItem:Object = new NavItem();
+			[Bindable]
+			public var mode:String = "";
+			public function setData(itemObj:Object):void{
+				this.styleName = "ItemSelected";
+				currentItem = itemObj;
+				trace(ObjectUtil.toString(currentItem));
+				parentNav.selectedIndex = Application.application.dataObj.getIndexFromArrayCollection(parentNav.dataProvider,'navitemid',currentItem.parentid);
+				pageAssign.selectedIndex = Application.application.dataObj.getIndexFromArrayCollection(pageAssign.dataProvider,'pageid',currentItem.pageid);
+				pageAssign.selectedIndex<0?pageAssign.selectedIndex=0:null;
+				filterAddresses();
+				addressAssign.selectedIndex = Application.application.dataObj.getIndexFromArrayCollection(addressAssign.dataProvider,'navitemaddressid',currentItem.navitemaddressid);
+				if((addressAssign.selectedIndex >= 0) && (addressAssign.selectedItem.formobjecttableid != 103)){
+					dataGroup.selectedValue = 1;
+					addressField.visible = true;
+				}else{
+					dataGroup.selectedValue = 0;
+				}
+				//trace("target "+currentItem.urlpath);
+				targetAssign.selectedIndex = Application.application.dataObj.getIndexFromArrayCollection(targetAssign.dataProvider,'value',currentItem.target)>=0?Application.application.dataObj.getIndexFromArrayCollection(targetAssign.dataProvider,'value',currentItem.target):0;
+			}
+			public function clearForm():void{
+				this.styleName = "ItemSelected";
+				currentItem = new NavItem();
+				parentNav.selectedIndex = 0;
+				pageAssign.selectedIndex = 0;
+				targetAssign.selectedIndex = 0;
+				URL.text = "";
+				Application.application.navTreePod.navTree.selectedIndex = -1;
+				Application.application.msgTxt.text = "New nav item.";
+			}
+			private function showImages(mode:String):void{
+				Application.application.dataObj.imageMode = mode;
+				if(Application.application.dataObj.imagePopUp != null){
+					PopUpManager.removePopUp(Application.application.dataObj.imagePopUp);
+					Application.application.dataObj.imagePopUp = null
+				}	
+				Application.application.dataObj.imagePopUp=PopUpManager.createPopUp(this, views.ImageSelectionPod, false);
+				Application.application.dataObj.imagePopUp.x = 70;
+				Application.application.dataObj.imagePopUp.y = 180;
+			}
+			public function saveForm():void{
+				currentItem.label = currentItem.navitemname;
+				currentItem.active = activeGroup.selectedValue;
+				currentItem.catonly = catGroup.selectedValue;
+				currentItem.fieldSave = Application.application.dataObj.fieldSave;
+				currentItem.navgroupid = Application.application.dataObj.currentGroup;
+				currentItem.urlpath = URL.text;
+				if((!(pageAssign.selectedIndex > 0) && (pageAssign.selectedItem.pageid == 0)) && (URL.text.length == 0) && !(catGroup.selectedValue == 1)){
+					Application.application.msgTxt.text = "Must select either a Page or set the URL!";
+					return;
+				}else if(pageAssign.selectedIndex > 0){
+					if(Application.application.dataObj.getIndexFromArrayCollection(Application.application.dataObj.addresses,'objectinstanceid',pageAssign.selectedItem.pageid)>=0){
+						currentItem.navitemaddressid = Application.application.dataObj.addresses.getItemAt(Application.application.dataObj.getIndexFromArrayCollection(Application.application.dataObj.addresses,'objectinstanceid',pageAssign.selectedItem.pageid)).navitemaddressid
+					}
+					if((dataGroup.selectedValue == 1) && (addressAssign.selectedIndex >= 0)){
+						currentItem.navitemaddressid = addressAssign.selectedItem.navitemaddressid;
+					}
+				}
+				trace("yo");
+				trace(ObjectUtil.toString(currentItem));
+				if(!currentItem.navitemaddressid>0){
+					currentItem.navitemaddressid = 0;
+				}
+				if(!targetAssign.selectedIndex>0){
+					currentItem.target = "_self";
+				}
+				if(currentItem.navitemid > 0){
+					trace("update");
+					Application.application.dbManager.navRO.updateMenuItem({dataStruct:currentItem});
+				}else{
+					trace("add");
+					!(currentItem.parentid>0)?currentItem.parentid=0:null;
+					Application.application.dbManager.navRO.addMenuItem({dataStruct:currentItem});
+				}
+				clearForm();
+				this.styleName = "ItemNotSelected";
+			}
+			public function deleteForm():void{
+				Alert.show("Do you want to remove this "+currentItem.navitemname+" nav item?", "Delete", 3, this, alertDeleteHandler);
+			}
+			private function alertDeleteHandler(event:CloseEvent):void{
+				if (event.detail==Alert.YES){
+					currentItem.label = currentItem.name;
+					if(currentItem.navitemid > 0){
+						Application.application.dbManager.navRO.delMenuItem({dataStruct:currentItem});
+					}
+					Application.application.msgTxt.text = "Item "+currentItem.navitemname+" removed.";
+					clearForm();
+				}else{
+					Application.application.msgTxt.text = "Not Deleted";
+				}
+			}
+			public function deleteImage(thisMode:String):void{
+				Alert.show("Do you want to remove this "+thisMode+" state Image?", "Remove", 3, this, alertClickHandler);
+				mode = thisMode;
+			}
+			private function alertClickHandler(event:CloseEvent):void {
+				if (event.detail==Alert.YES){
+					switch(mode){
+						case 'on':
+							currentItem.onState = "";
+							currentItem.imageOn = "";
+							onImage.source = "";
+						break;
+						case 'off':
+							currentItem.offState = "";
+							currentItem.imageOff = "";
+							offImage.source = "";
+						break;
+						case 'at':
+							currentItem.atState = "";
+							currentItem.imageAt = "";
+							atImage.source = "";
+						break;
+					}
+					//Application.application.navForm.dispatchEvent(new Event(Event.CHANGE));
+				}
+			}
+			public function testLink():void{
+				var request:URLRequest;
+				if(!URL.text.length){
+					request = new URLRequest(Application.application.serverURL+pageAssign.selectedItem.fullpagename);
+					navigateToURL(request, "_blank");
+				}else{
+					if(URL.text.toLowerCase().indexOf("http://") == 0){
+						request = new URLRequest(URL.text);
+						navigateToURL(request, "_blank");
+					}else if(URL.text.toLowerCase().indexOf("www.") == 0){
+						request = new URLRequest("http://"+URL.text);
+						navigateToURL(request, "_blank");
+					}else{
+						if(URL.text.toLowerCase().indexOf("/") == 0){
+							request = new URLRequest(Application.application.serverURL+URL.text);
+						}else{
+							request = new URLRequest(Application.application.serverURL+"/"+URL.text);
+						}
+						navigateToURL(request, "_blank");
+					}
+				}
+			}
+			private function filterAddresses():void{
+				var newFilter:Function = function(item:Object):Boolean{
+					var pageid:Number = pageAssign.selectedItem.pageid;
+					var tableList:Array = new Array();
+					if(pageAssign.selectedIndex > 0){
+						//URLField.visible = false;
+						tableList = pageAssign.selectedItem.linkedTables.split(',');
+					}else{
+						//URLField.visible = true;
+					}
+					if((item.formobjecttableid == 103) && (item.objectinstanceid == pageid)){
+						return true;
+					}else if(item.formobjecttableid != 103){
+						if(tableList.length){
+							for(var i:Number=0 ; i<tableList.length ; i++){
+								if(item.formobjecttableid == tableList[i]){
+									return true;
+								}
+							}
+							return false;
+						}else{
+							if(item.formobjecttableid == ""){
+								return true;
+							}
+							return false;
+						}
+					}else{
+						//never reached ??
+						return false;
+					}
+				};
+				Application.application.dataObj.addresses.filterFunction = newFilter;
+				Application.application.dataObj.addresses.refresh();
+				addressAssign.invalidateDisplayList();
+				addressAssign.validateNow();
+				addressAssign.selectedIndex = 0;
+			}
+		]]>
+	</mx:Script>
+	<mx:Binding source="parentNav.selectedItem.navitemid" destination="currentItem.parentid" />
+	<mx:Binding source="navName.text" destination="currentItem.navitemname" />
+	<mx:Binding source="pageAssign.selectedItem.pageid" destination="currentItem.pageid" />
+	<mx:Binding source="URL.text" destination="currentItem.urlpath" />
+	<mx:Binding source="targetAssign.selectedItem.value" destination="currentItem.target" />
+	<mx:Binding source="activeGroup.selectedValue" destination="currentItem.active" />
+	<mx:Binding source="catGroup.selectedValue" destination="currentItem.catonly" />
+	<mx:Binding source="currentItem.onState" destination="onImage.source" />
+	<!-- -->
+	<mx:StringValidator source="{navName}" property="text" minLength="1"/>
+	<mx:FormHeading label="Navigation Item"/>
+	<mx:FormItem label="Label:" required="true" textAlign="left" horizontalAlign="left" >
+		<mx:TextInput id="navName" text="{currentItem.navitemname}" width="200" />
+	</mx:FormItem>
+	<mx:FormItem label="Parent:">
+		<mx:ComboBox id="parentNav" dataProvider="{Application.application.dataObj.navItems}" labelField="navitemname" rowCount="10"/>
+	</mx:FormItem>
+	<mx:FormItem label="Page:">
+		<mx:ComboBox id="pageAssign" dataProvider="{Application.application.dataObj.pages}" labelField="fullpagename" change="filterAddresses()" rowCount="10"/>
+	</mx:FormItem>
+	<mx:FormItem label="Use Detail Item:" toolTip="Allow navigation to point to a specific page that is dynamically created.">
+		<mx:RadioButtonGroup id="dataGroup" change="addressField.visible = dataGroup.selectedValue" />
+		<mx:HBox>
+			<mx:RadioButton groupName="dataGroup" value="1" labelPlacement="right" label="yes" selected="false" />
+			<mx:RadioButton groupName="dataGroup" value="0" labelPlacement="right" label="no" selected="true" />
+		</mx:HBox>
+	</mx:FormItem>
+	<mx:FormItem id="addressField" visible="false" label="Detail Item:">
+		<mx:ComboBox id="addressAssign" enabled="{dataGroup.selectedValue}" dataProvider="{Application.application.dataObj.addresses}" labelField="navitemaddressname"/>
+	</mx:FormItem>
+	<mx:FormItem label="URL:" id="URLField" >
+		<mx:TextInput id="URL" text="{currentItem.urlpath}" width="200" />
+	</mx:FormItem>
+	<mx:FormItem label="Target:">
+		<mx:ComboBox id="targetAssign" dataProvider="{targetList}" />
+	</mx:FormItem>
+	<mx:HBox paddingTop="10" verticalAlign="middle">
+		<mx:HRule/>
+		<mx:Button label="Optional" height="15" mouseDown="{imageBox.visible=!imageBox.visible; this.invalidateDisplayList(); this.validateDisplayList(); imageBox.visible?imageBox.percentHeight=50:imageBox.height=10;}" buttonMode="true" useHandCursor="true" toolTip="Manage Images" />
+		<mx:HRule/>
+	</mx:HBox>
+	<mx:VBox id="imageBox" visible="false" height="10" horizontalAlign="left">
+	<mx:FormItem label="On State:" labelWidth="105" textAlign="left">
+		<mx:HBox>
+			<mx:Button label="Get Image" click="showImages('on')" />
+			<mx:Image id="onImage" source="{currentItem.onState}" click="deleteImage('on')" toolTip="Click to Remove" />
+		</mx:HBox>
+	</mx:FormItem>
+	<mx:FormItem label="Off State:" labelWidth="105">
+		<mx:HBox>
+			<mx:Button label="Get Image" click="showImages('off')" />
+			<mx:Image id="offImage" source="{currentItem.offState}" click="deleteImage('off')" toolTip="Click to Remove" />
+		</mx:HBox>
+	</mx:FormItem>
+	<mx:FormItem label="At State:" labelWidth="105">
+		<mx:HBox>
+			<mx:Button label="Get Image" click="showImages('at')" />
+			<mx:Image id="atImage" source="{currentItem.atState}" click="deleteImage('at')" toolTip="Click to Remove" />
+		</mx:HBox>
+	</mx:FormItem>
+		<mx:HRule width="94%" left="30"/>
+	</mx:VBox>
+	<mx:FormItem label="Active:">
+		<mx:RadioButtonGroup id="activeGroup" selectedValue="{currentItem.active}" />
+		<mx:HBox>
+			<mx:RadioButton groupName="activeGroup" value="1" labelPlacement="right" label="yes" />
+			<mx:RadioButton groupName="activeGroup" value="0" labelPlacement="right" label="no" />
+		</mx:HBox>
+	</mx:FormItem>
+	<mx:FormItem label="Treat as Category:">
+		<mx:RadioButtonGroup id="catGroup" selectedValue="{currentItem.catonly}" />
+		<mx:HBox>
+			<mx:RadioButton groupName="catGroup" value="1" labelPlacement="right" label="yes" />
+			<mx:RadioButton groupName="catGroup" value="0" labelPlacement="right" label="no" />
+		</mx:HBox>
+	</mx:FormItem>
+</mx:Form>

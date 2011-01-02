@@ -1,0 +1,223 @@
+/* CSS Document */
+#prototypeblock{
+	position:absolute;
+	right:0;
+	top:0;
+	/*background-color:#dadada; Set bg to white to match the "page review" status*/
+	background-color:#fff;
+	border:1px solid #000000;
+	width:280px;
+}
+#prototypecontent{
+	background-color:#FFFFFF;
+	border:1px solid #666666;
+	margin:4px;
+	padding:5px;
+}
+#prototypecontent ol{
+
+}
+
+#prototypecontent ol p{
+	display: inline;
+	margin-left: 0px;
+	padding: 0px;
+}
+
+#prototypecontent li{
+	margin-left: 0px;
+}
+
+#prototypebar{
+	background-color:#666666;
+	color:#FFFFFF;
+	text-align:center;
+	padding:3px 0;
+}
+.prototypeinput{
+	font-size:10px;
+	margin:0;
+	padding:0;
+}
+#prototypeNavDD{
+	float:right;
+	padding:0 5px 5px 0;
+}
+#showHideButton{
+
+}
+.annotateNumber{
+	border:1px solid #333333;
+	padding:8px;
+	width:10px;
+	height:10px;
+	text-align:center;
+	color:#FFFFFF;
+	background-color:#CC0000;
+}
+.categoryHeading{
+	font-weight:bold;
+	padding:5px 0 3px 3px;
+	background-color:#f1f1f1;
+}
+.noteTable{
+	margin:10px;
+	padding:0;
+}
+.noteTableCol1{
+	width: 5%;
+	vertical-align:top;
+	font-weight:bold;
+}
+.noteTableCol2{
+	width: 90%;
+	vertical-align:top;
+}
+.noteTableCol2 p{
+	margin-top:0px;
+}
+.dateMod{
+	font-style:italic;
+	display:inline;
+}
+.editNoteBar{
+
+	text-align:right;
+}
+
+.addNote{
+	text-align: right;
+}
+
+/* dev notes stuff*/
+#devNotesBlock{
+	position:fixed; 
+	bottom:0;
+	/*background:transparent url(images/catfish-tile.gif) repeat-x left bottom; */
+	background-color:#666666;
+	padding:0; 
+	height: auto;  /* includes transparent part */ 
+	/*cursor: pointer; */
+	margin: 0;  
+	width:100%;
+}
+#devNotesInnerBar{
+	background-image:url(#application.globalPath#/media/images/prototypingHdrBarTile.gif);
+	background-repeat:repeat-x;
+	text-align:right;
+	height:18px;
+	vertical-align:middle;
+}
+#devNotesOuterBar{
+	background-color:#666666;
+	height:24px;
+	padding:3px;
+}
+#devnotesbody{
+	margin:0 5px 5px 5px;
+	padding:10px;
+	background-color:#f1f1f1;
+	border:1px solid #000000;
+}
+#devNotesTree{
+	float:left;
+	width: 50%;
+}
+#devNotesForm{
+	float:left;
+	text-align:right;
+	width: 50%;
+}
+#devNotesTree p{
+	font-family:Verdana,sans-serif;
+	font-size:8pt;
+	font-weight:bold;
+	padding: 0px;
+	margin: 0px;
+}
+#devNotesTree .noteDescrp{
+	font-weight:normal;
+}
+#welcomeText{
+	float:left;
+	display:inline;
+	font-weight:bold;
+	margin:2px 0 3px 10px;
+}
+#postButton{
+	background-color:#6A9710;
+	color:#FFFFFF;
+	font-size:11px;
+	font-weight:bold;
+	padding:3px;
+	border: 1px solid #000000;
+	margin:5px 0 0 140px;
+}
+.devHeaderText{
+	color:#CC0000;
+	font-size:16px;
+}
+#detailBlock{
+	background-color:#FFFFEF;
+	border:1px solid #dadada;
+	padding:8px;
+
+	margin:3px 0 3px 50px;
+}
+
+/*printable prototype*/
+#PTnotes{
+	margin:0 10px;
+	width:450px;
+	float:left;
+	border-right:1px solid #dfdfdf;
+}	
+#ClientNoteContainer{
+	width:100px;
+	float:left;
+	margin-top:25px;
+	font-style:italic;
+}
+#PTinfo{
+	margin-top:10px;
+	font-style:italic;
+	font-size:16px;
+}
+.PTcategory{
+	font-weight:bold;
+	margin-left:2px;
+}
+.PTSection{
+	color:#f1f1f1;
+	background-color:#333333;
+	padding:2px 10px;
+}
+.PTPageBlock{
+	margin-left:10px;
+}
+.PTpage{
+	color:#333333;
+	border-bottom:1px solid #999999;
+}
+.PTnoteContainer{
+	margin:5px 0 5px 0;
+	margin-left:2px;
+}
+.PTnote{}
+.PTnoteNum{
+	font-weight:bold;
+}
+.PTdivide{
+	border-top:1px solid;
+}
+.PTdddHelper{
+	float: right;
+	position:relative;	
+	right:240px;
+	z-index: 1;
+	width:35px;
+}
+* html .PTdddHelper{
+	position:absolute;	
+	right:540px;
+}

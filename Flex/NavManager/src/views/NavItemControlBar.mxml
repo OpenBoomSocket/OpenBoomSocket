@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ControlBar xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.Application;
+			
+		]]>
+	</mx:Script>
+	<mx:HBox>
+		<mx:Button styleName="saveButton" id="saveButton" label="Save" labelPlacement="right" click="Application.application.navForm.saveForm()" />
+		<mx:Button styleName="addButton" id="newItem" label="New" labelPlacement="right" click="Application.application.navForm.clearForm()" />
+		<mx:Button styleName="deleteButton" id="deleteItem" label="Delete" labelPlacement="right" click="Application.application.navForm.deleteForm()" />
+		<mx:Button styleName="testButton" id="testItem" label="Test Link" labelPlacement="right" click="Application.application.navForm.testLink()" />
+	</mx:HBox>
+</mx:ControlBar>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" minWidth="550" xmlns:managers="managers.*" creationComplete="initApp()" width="100%" minHeight="400" height="100%"  maxWidth="1024" maxHeight="768"
+	horizontalAlign="center" horizontalCenter="0" verticalCenter="0" xmlns:views="views.*" xmlns:actionScript="actionScript.*" currentState="instanceView"><!--height="200" minHeight="200"-->
+	<mx:Metadata>
+       [Event(name="DialogResponse")]
+    </mx:Metadata>
+	<mx:Style source="/css/ContentMapping.css"/>
+	<mx:Script source="/actionScript/global.as"/>
+	<mx:Script>
+		<![CDATA[
+			//
+		]]>
+	</mx:Script>
+	<managers:RemoteDBManager id="dbObj"/>
+	<managers:DataMananger id="dataObj"/>
+	<mx:WipeLeft id="childHide" duration="5000" />
+	<mx:WipeDown id="childShow" duration="5000" />
+	
+	<actionScript:MyTabNavigator id="selectionManager" styleName="selectionManager" top="2" horizontalCenter="0" right="5" left="5" bottom="5" change="manageTabs(event);" hideEffect="{childHide}" showEffect="{childShow}" creationPolicy="all" childAdd="{Application.application.selectionManager.selectedChild=selectionManager.getChildAt(0);selectionManager.selectedIndex=0}">
+		<mx:Canvas id="assignmentForm" styleName="assignmentForm" label="Assignments" width="100%" height="100%">
+			<mx:VBox id="roleBox" top="0" horizontalCenter="0" width="100%" horizontalAlign="center" verticalGap="0" visible="false">
+				<mx:Label id="assignmentText" styleName="assignmentText" horizontalCenter="0" text="{dataObj.instanceRole=='associate'?String('Assign the following '+dataObj.toolName+' to appear on specific pages.'):String('Assign pages to appear on the following '+dataObj.toolName+' instance.')}" width="100%"/>
+				<mx:Label id="instanceLabel" styleName="instanceLabel" horizontalCenter="0" text="{String(String.fromCharCode(34)+dataObj.instanceMaster[dataObj.nameFieldMaster]+String.fromCharCode(34))}" width="100%"/>
+			</mx:VBox>
+			<mx:VBox id="assigmentBox" width="100%" height="100%" verticalGap="5" top="25" label="{dataObj.instanceRole=='associate'?String('Select the place(s) where you want this '+String(dataObj.toolName).toLowerCase()+' to appear:'):String('Select the place(s) you want to appear for this '+String(dataObj.toolName).toLowerCase()+':')}">
+				<!--<mx:Label text="Assignment" styleName="listHeadings" />-->
+				<mx:DataGrid id="dataMapping" dataProvider="{dataObj.availableDataList}" height="100%" width="100%" left="5" dragEnabled="true" >
+					<mx:columns>
+						<mx:DataGridColumn dataField="isMapped" headerText="Assigned" width="60" textAlign="center">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox horizontalAlign="center">
+										<mx:CheckBox id="thisCB" selected="{data.isMapped}" change="setCheck()" dataChange="refreshCheck()" horizontalCenter="0">
+											<mx:Script>
+												<![CDATA[
+													import mx.core.Application;
+													import mx.events.DragEvent;
+													import mx.managers.DragManager;
+													import mx.core.IUIComponent;
+													import mx.controls.Alert;
+													private function setCheck():void{
+														data.isMapped = thisCB.selected;
+														Application.application.dataObj.needToSave = true;
+													}
+													private function refreshCheck():void{
+														thisCB.selected = data.isMapped;
+													}
+												]]>
+											</mx:Script>
+										</mx:CheckBox>
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+						<mx:DataGridColumn dataField="{dataObj.nameFieldAssociate}" headerText="Name">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:Text width="100%" selectable="false" text="{data[Application.application.dataObj.nameFieldAssociate]}" dragEnter="doDragEnter(event)" dragDrop="doDragDrop(event)">
+										<mx:Script>
+											<![CDATA[
+												import mx.core.Application;
+												import mx.events.DragEvent;
+												import mx.managers.DragManager;
+												import mx.core.IUIComponent;
+												import mx.controls.Alert;
+												import mx.utils.ObjectUtil;
+												public function doDragEnter(eventObj:DragEvent):void{
+													if (eventObj.dragSource.hasFormat("items")){
+														DragManager.acceptDragDrop(IUIComponent(eventObj.target));
+														eventObj.preventDefault();
+														eventObj.action=DragManager.MOVE;
+													}
+												}
+												public function doDragDrop(eventObj:DragEvent):void{
+													var items:Array = eventObj.dragSource.dataForFormat("items") as Array;
+													var sourceIndex:Number = Application.application.dataMapping.dataProvider.getItemIndex(items[0]);
+													var destinationIndex:Number = Application.application.dataMapping.dataProvider.getItemIndex(data)
+													Application.application.dataMapping.dataProvider.addItemAt(Application.application.dataMapping.dataProvider.removeItemAt(sourceIndex),destinationIndex);
+												}
+											]]>
+										</mx:Script>
+									</mx:Text>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+					</mx:columns>
+				</mx:DataGrid>
+				<mx:ApplicationControlBar left="10" right="10" bottom="25" width="100%" styleName="saveBarStyle">
+					<mx:CheckBox id="selectionCB" styleName="selectionCB" left="20" minWidth="250" width="250" height="15" selected="false" click="updateChecks()" labelPlacement="right" label="Check All               " enabled="{dataObj.availableDataList.length>0?true:false}"/>
+					<mx:Spacer width="70%"/>
+					<mx:Button id="saveButton" styleName="saveButton" right="20" label="Save" top="3" click="sendMappings()" />
+				</mx:ApplicationControlBar>
+			</mx:VBox>
+		</mx:Canvas>
+	</actionScript:MyTabNavigator>
+	<mx:states>
+		<mx:State name="admin">
+			<mx:RemoveChild target="{assigmentBox}"/>
+			<mx:AddChild relativeTo="{assignmentForm}" position="firstChild" creationPolicy="all">
+				<mx:Accordion id="selectionAcc" creationPolicy="all" width="100%" height="100%" change="manageFolds()" creationComplete="stateChange()" >
+					<mx:VBox id="mainSelectionBox" height="100%" verticalGap="5" width="100%" label="{dataObj.instanceRole=='associate'?String('Select the '+String(dataObj.toolName).toLowerCase()+' you would like to assign to pages:'):String('Select the '+String(dataObj.toolName).toLowerCase()+' you would like to assign pages to:')}">
+						<!--mx:Label text="{dataObj.toolName}" styleName="listHeadings" />-->
+						<mx:DataGrid id="mainSelectionList" dataProvider="{dataObj.mainListData}" resize="widthAdj(event)" height="100%" change="setTabCondition(event)" width="100%">
+							<mx:columns>
+								<mx:DataGridColumn dataField="{dataObj.nameFieldMaster}" headerText="Name"/>
+							</mx:columns>
+						</mx:DataGrid>
+					</mx:VBox>
+					<mx:VBox height="100%" verticalGap="5" width="100%" label="{dataObj.instanceRole=='associate'?String('Select the type of page you would like to assign the above '+String(dataObj.toolName).toLowerCase()+' to:'):String('Select the type of page you would like to assign to the above '+String(dataObj.toolName).toLowerCase()+':')}">
+						<!--<mx:Label text="Page Types" styleName="listHeadings" />-->
+						<mx:List id="ruleListing" dataProvider="{dataObj.ruleSet}" labelField="formobjectname" height="100%" change="setTabCondition(event)" width="100%"/>
+					</mx:VBox>
+				</mx:Accordion>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{selectionAcc}" position="lastChild" target="{assigmentBox}"/>
+			<mx:SetStyle target="{assigmentBox}" name="top"/>
+			<mx:SetProperty target="{selectionCB}" name="width" value="250"/>
+		</mx:State>
+		<mx:State name="instanceView">
+			<mx:AddChild relativeTo="{assigmentBox}" position="firstChild">
+				<mx:ComboBox id="ruleListingCB" left="5" top="35" dataProvider="{dataObj.ruleSet}" labelField="formobjectname" change="getInstancesForAssignment()" />
+			</mx:AddChild>
+			<mx:SetStyle target="{assigmentBox}" name="top" value="35"/>
+			<mx:SetStyle target="{assignmentForm}" name="right" value="5"/>
+			<mx:SetStyle target="{dataMapping}" name="right" value="5"/>
+			<mx:SetProperty target="{dataMapping}" name="width" value="100%"/>
+			<mx:SetProperty target="{roleBox}" name="visible" value="true"/>
+			<mx:SetProperty target="{assignmentForm}" name="label" value="{String(dataObj.toolName+' Assignments')}"/>
+			<mx:SetProperty target="{selectionCB}" name="width" value="150"/>
+		</mx:State>
+	</mx:states>
+	<mx:transitions>
+		<mx:Transition fromState="" toState="instanceView">
+			<mx:Sequence>
+				<mx:RemoveChildAction target="{assignmentForm}"/>
+				<mx:AddChildAction/>
+				<mx:SetStyleAction/>
+				<mx:SetPropertyAction/>
+			</mx:Sequence>
+		</mx:Transition>
+		<mx:Transition fromState="instanceView" toState="admin">
+			<mx:Sequence>
+				<mx:RemoveChildAction target="{assigmentBox}"/>
+				<mx:AddChildAction target="{selectionAcc}"/>
+				<mx:AddChildAction target="{assigmentBox}"/>
+				<mx:SetStyleAction/>
+				<mx:SetPropertyAction/>
+			</mx:Sequence>
+		</mx:Transition>
+	</mx:transitions>
+</mx:Application>

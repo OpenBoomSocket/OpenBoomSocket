@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Image;
+			import mx.core.Application;
+			import mx.managers.PopUpManager;
+			[Bindable]
+			private var appObj:Object = new Object();
+			
+			private function init():void{
+				appObj = Application.application;
+				addGroupButton.source = new appObj.AddGroupButton();
+				editGroupButton.source = new appObj.EditGroupButton();
+			}
+			private function editGroup(thisGroup:Number):void{
+				if(appObj.dataObj.imagePopUp != null){
+					PopUpManager.removePopUp(appObj.dataObj.imagePopUp);
+					appObj.dataObj.imagePopUp = null
+				}	
+				appObj.dataObj.imagePopUp=PopUpManager.createPopUp(this, views.GroupForm, false);
+				appObj.dataObj.imagePopUp.x = 70;
+				appObj.dataObj.imagePopUp.y = 70;
+				if(thisGroup > 0){
+					appObj.dataObj.imagePopUp.setData(groupList.selectedItem);
+				}
+			}
+			private function updateGroup():void{
+				appObj.dataObj.currentGroup = groupList.selectedItem.navgroupid;
+				appObj.dbManager.navRO.getAllNavigation({navgroupid:Number(appObj.dataObj.currentGroup),fromflex:1,usePermissions:1,active:0});
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox verticalAlign="middle">
+		<mx:ComboBox id="groupList" dataProvider="{appObj.dataObj.navGroups}" labelField="navgroupname" change="updateGroup()" />
+		<mx:Image id="addGroupButton" click="editGroup(0);" buttonMode="true" useHandCursor="true" toolTip="Add new navigation group" />
+		<mx:Image id="editGroupButton" click="editGroup(appObj.dataObj.currentGroup)" buttonMode="true" useHandCursor="true" toolTip="Edit current navigation group" />
+	</mx:HBox>
+</mx:VBox>

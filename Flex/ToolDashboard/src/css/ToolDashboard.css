@@ -1,0 +1,64 @@
+/* CSS file */
+Application{
+	backgroundColor: #ffffff;
+	themeColor: #336699;
+}
+Accordion {
+   borderStyle: none;
+   headerHeight: 30;
+   themeColor: #336699;
+   fontSize: 10;
+}
+.toolPod{
+	controlBarStyleName: "toolPodCntrl";
+	borderAlpha: 1;
+	borderThicknessLeft: 0;
+	borderThicknessTop: 0;
+	borderThicknessBottom: 0;
+	borderThicknessRight: 0;
+	bordercolor: #F8AD37;
+	cornerRadius: 8;
+	headerHeight: 23;
+	highlightAlphas: 0, 0;
+	headerColors: #f8ad37, #d08d23;
+	roundedBottomCorners: false;
+	footerColors: #f8ad37, #f8ad37;
+	backgroundColor: #EFF6FF;
+	paddingRight: 10;
+	fontSize: 11;
+	textAlign: left;
+	dropShadowEnabled: true;
+	shadowDirection: center;
+	shadowDistance: 5;
+	dropShadowColor: #444444;
+}
+.catAcc{
+	borderStyle: none;
+	backgroundAlpha: 0;
+}
+.toolAccList{
+	paddingTop: 10;
+}
+.listHolder{
+	paddingLeft: 20;
+	backgroundAlpha: 0;
+	top: 10;
+}
+ControlBar.toolPodCntrl{
+	borderStyle: none;
+	backgroundColor: #F8AD37;
+	roundedBottomCorners: false;
+}
+.configBtn{
+	fillAlphas: 1, 1, 1, 1;
+	fillColors: #ffffff, #ffffff, #ffffff, #ffffff;
+	icon: Embed(source='/assets/configure_icon.gif');
+}
+List.itemList{
+	alternatingItemColors: #DFEEFF, #EFF6FF;
+}
+TileList{
+	selectionColor: #ffffff;
+	rollOverColor: #ffffff;
+	borderStyle: none;
+}
